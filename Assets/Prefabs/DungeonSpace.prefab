@@ -67,6 +67,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20d91de50cc21b24fbd6fc790dd9929b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dungeonSpacePrefab: {fileID: 3172542154984312994}
 --- !u!1 &4301447536891016294
 GameObject:
   m_ObjectHideFlags: 0

@@ -13,6 +13,6 @@ public class DungeonSpace : MonoBehaviour {
         }
     }
     void ExpandDungeon() {
-        Instantiate(dungeonSpacePrefab, new Vector3(10, 10, 10), Quaternion.identity);
+        Instantiate(dungeonSpacePrefab, new Vector3(10, 0, 10), Quaternion.identity);
     }
 }
