@@ -153,6 +153,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20d91de50cc21b24fbd6fc790dd9929b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dungeonSpacePrefab: {fileID: 3172542154984312994, guid: 60b03ea3443e43549a2127cfe6932932,
+    type: 3}
 --- !u!65 &57390637
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -757,7 +759,7 @@ GameObject:
   - component: {fileID: 452366742}
   m_Layer: 0
   m_Name: XR Origin (XR Rig)
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
