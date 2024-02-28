@@ -17,8 +17,8 @@ public class DungeonSpace : MonoBehaviour
         if (other.gameObject.tag == "Player")
         {
             int x = GetDungeonIndexFromTransformValue(transform.position.x);
-            int y = GetDungeonIndexFromTransformValue(transform.position.y);
-            print("$Player entered the Dungeon room ({x}, {y})");
+            int z = GetDungeonIndexFromTransformValue(transform.position.z);
+            print($"Player entered the Dungeon room ({x}, {z})");
             ExpandDungeon();
             this.enabled = false;
         }
@@ -28,26 +28,26 @@ public class DungeonSpace : MonoBehaviour
         // TODO: Check 8 neighbours for existance.
         // TODO: Prevent out of boundary
         int x = GetDungeonIndexFromTransformValue(transform.position.x),
-            y = GetDungeonIndexFromTransformValue(transform.position.y);
-        MaybeInitializeNeighbouringDungeonRoom(x - 1, y - 1);
-        MaybeInitializeNeighbouringDungeonRoom(x - 1, y);
-        MaybeInitializeNeighbouringDungeonRoom(x - 1, y + 1);
-        MaybeInitializeNeighbouringDungeonRoom(x, y - 1);
-        MaybeInitializeNeighbouringDungeonRoom(x, y + 1);
-        MaybeInitializeNeighbouringDungeonRoom(x + 1, y - 1);
-        MaybeInitializeNeighbouringDungeonRoom(x + 1, y);
-        MaybeInitializeNeighbouringDungeonRoom(x + 1, y + 1);
+            z = GetDungeonIndexFromTransformValue(transform.position.z);
+        MaybeInitializeNeighbouringDungeonRoom(x - 1, z - 1);
+        MaybeInitializeNeighbouringDungeonRoom(x - 1, z);
+        MaybeInitializeNeighbouringDungeonRoom(x - 1, z + 1);
+        MaybeInitializeNeighbouringDungeonRoom(x, z - 1);
+        MaybeInitializeNeighbouringDungeonRoom(x, z + 1);
+        MaybeInitializeNeighbouringDungeonRoom(x + 1, z - 1);
+        MaybeInitializeNeighbouringDungeonRoom(x + 1, z);
+        MaybeInitializeNeighbouringDungeonRoom(x + 1, z + 1);
     }
-    void MaybeInitializeNeighbouringDungeonRoom(int x, int y)
+    void MaybeInitializeNeighbouringDungeonRoom(int x, int z)
     {
   
-        if (DungeonRoomNeighboursNotYetInitialized(x, y))
+        if (DungeonRoomNeighboursNotYetInitialized(x, z))
         {
-            matrix[x, y] = true;
+            matrix[x, z] = true;
             Instantiate(dungeonSpacePrefab, 
                         new Vector3(GetTransformValueFromDungeonIndex(x), 
                         0, 
-                        GetTransformValueFromDungeonIndex(y)), Quaternion.identity);
+                        GetTransformValueFromDungeonIndex(z)), Quaternion.identity);
         }
     }
     int GetDungeonIndexFromTransformValue(float transform_value)
@@ -60,14 +60,14 @@ public class DungeonSpace : MonoBehaviour
         return (dungeon_index - HALF_DUNGEON_SIZE) * DUNGEON_ROOM_SIZE;
     }
 
-    bool DungeonRoomNeighboursNotYetInitialized(int x, int y)
+    bool DungeonRoomNeighboursNotYetInitialized(int x, int z)
     {
-        if (x < 0 || y < 0 || x >= DUNGEON_SIZE || y >= DUNGEON_SIZE)
+        if (x < 0 || z < 0 || x >= DUNGEON_SIZE || z >= DUNGEON_SIZE)
         {
-            print($"Dungeon limit reached ({x}, {y})");
+            print($"Dungeon limit reached ({x}, {z})");
             return false;
         }
 
-        return !matrix[x, y];
+        return !matrix[x, z];
     }
 }
