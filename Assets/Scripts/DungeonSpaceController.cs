@@ -25,8 +25,6 @@ public class DungeonSpace : MonoBehaviour
     }
     void ExpandDungeon()
     {
-        // TODO: Check 8 neighbours for existance.
-        // TODO: Prevent out of boundary
         int x = GetDungeonIndexFromTransformValue(transform.position.x),
             z = GetDungeonIndexFromTransformValue(transform.position.z);
         MaybeInitializeNeighbouringDungeonRoom(x - 1, z - 1);
