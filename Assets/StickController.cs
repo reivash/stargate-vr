@@ -33,7 +33,10 @@ public class StickController : MonoBehaviour
             AudioSource audioSource = GetComponent<AudioSource>();
             audioSource.Play();
             ChaserAI script = GameObject.Find("ChaserCapsule").GetComponent<ChaserAI>();
-            script.TakeDamage(stickDamage);
+            Vector3 collisionDirection = transform.position - other.transform.position;
+            collisionDirection.Normalize();
+            collisionDirection.y = 0;
+            script.TakeDamage(stickDamage, collisionDirection);
         }
     }
 }

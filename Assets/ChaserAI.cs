@@ -7,6 +7,9 @@ using static UnityEngine.XR.OpenXR.Features.Interactions.DPadInteraction;
 public class ChaserAI : MonoBehaviour
 {
     public NavMeshAgent agent;
+    public MeshRenderer meshRenderer;
+    public Rigidbody rigidBody;
+    AudioSource audioSource;
     public Transform player;
     public LayerMask whatIsGround, whatIsPlayer;
 
@@ -27,10 +30,15 @@ public class ChaserAI : MonoBehaviour
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
         agent = GetComponent<NavMeshAgent>();
+        meshRenderer = GetComponent<MeshRenderer>();
+        audioSource = GetComponent<AudioSource>();
+        rigidBody = GetComponent<Rigidbody>();
+        rigidBody.isKinematic = true;   
     }
 
     private void Update()
     {
+        if (!agent.enabled) return;
         playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
         if (playerInSightRange) ChasePlayer();
     }
@@ -43,22 +51,25 @@ public class ChaserAI : MonoBehaviour
         agent.SetDestination(player.position);
     }
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(int damage, Vector3 hitDirection)
     {
+        if (!agent.enabled || (agent.isOnNavMesh && agent.isStopped)) return;
+        rigidBody.isKinematic = false;
+        agent.enabled = false;
+        rigidBody.AddForce(hitDirection.normalized * damage/10, ForceMode.Impulse);
+
         damaged = true;
         health -= damage;
-            MeshRenderer renderer = GetComponent<MeshRenderer>();
         if (health <= 0)
         {
-            AudioSource audioSource = GetComponent<AudioSource>();
             audioSource.Play();
             Invoke(nameof(DestroyChaser), 1.5f);
             dead = true;
-            agent.isStopped = true;
-            renderer.material.color = Color.black;
+           if (agent.isOnNavMesh) agent.isStopped = true;
+            meshRenderer.material.color = Color.black;
         }
         else {
-            renderer.material.color = Color.red;
+            meshRenderer.material.color = Color.red;
             Invoke(nameof(Resume), timeoutAttackedColor);
         }
     }
@@ -69,9 +80,10 @@ public class ChaserAI : MonoBehaviour
     }
 
     private void Resume() {
+        agent.enabled = true;
+        rigidBody.isKinematic = false;
         damaged = false;
-        MeshRenderer renderer = GetComponent<MeshRenderer>();
-        renderer.material.color = Color.white;
+        meshRenderer.material.color = Color.white;
     }
 
     private void OnDrawGizmosSelected()
