@@ -41,15 +41,24 @@ public class ChaserAI : MonoBehaviour
         agent.SetDestination(player.position);
     }
 
-    public void TakeDamage(int damage) {
+    public void TakeDamage(int damage)
+    {
         damaged = true;
         health -= damage;
-        if (health <= 0) {
-            Destroy(gameObject);
+        if (health <= 0)
+        {
+            AudioSource audioSource = GetComponent<AudioSource>();
+            audioSource.Play();
+            Invoke(nameof(DestroyChaser), 3);
         }
         MeshRenderer renderer = GetComponent<MeshRenderer>();
         renderer.material.color = Color.red;
         Invoke(nameof(Resume), timeoutAttackedColor);
+    }
+
+    private void DestroyChaser()
+    {
+        Destroy(gameObject);
     }
 
     private void Resume() {

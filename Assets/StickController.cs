@@ -30,6 +30,8 @@ public class StickController : MonoBehaviour
     {
         if (enabled && other.name == "ChaserCapsule")
         {
+            AudioSource audioSource = GetComponent<AudioSource>();
+            audioSource.Play();
             ChaserAI script = GameObject.Find("ChaserCapsule").GetComponent<ChaserAI>();
             script.TakeDamage(stickDamage);
         }
