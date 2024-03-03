@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using static UnityEngine.XR.OpenXR.Features.Interactions.DPadInteraction;
 
 public class ChaserAI : MonoBehaviour
 {
@@ -20,6 +21,7 @@ public class ChaserAI : MonoBehaviour
     public bool damaged;
     public int health = 10;
     public int timeoutAttackedColor = 1;
+    public bool dead;
 
     private void Awake()
     {
@@ -35,7 +37,7 @@ public class ChaserAI : MonoBehaviour
 
     private void ChasePlayer()
     {
-        if (damaged) return;
+        if (damaged || dead) return;
 
         print("Chasing player");
         agent.SetDestination(player.position);
@@ -45,15 +47,20 @@ public class ChaserAI : MonoBehaviour
     {
         damaged = true;
         health -= damage;
+            MeshRenderer renderer = GetComponent<MeshRenderer>();
         if (health <= 0)
         {
             AudioSource audioSource = GetComponent<AudioSource>();
             audioSource.Play();
-            Invoke(nameof(DestroyChaser), 3);
+            Invoke(nameof(DestroyChaser), 1.5f);
+            dead = true;
+            agent.isStopped = true;
+            renderer.material.color = Color.black;
         }
-        MeshRenderer renderer = GetComponent<MeshRenderer>();
-        renderer.material.color = Color.red;
-        Invoke(nameof(Resume), timeoutAttackedColor);
+        else {
+            renderer.material.color = Color.red;
+            Invoke(nameof(Resume), timeoutAttackedColor);
+        }
     }
 
     private void DestroyChaser()
