@@ -111,7 +111,8 @@ public class DungeonSpace : MonoBehaviour
                 (x, z) = path.Pop();
             } else { 
                 // If move options, check cell as path and mark as path.
-                tiles[x, z] = TILE_TYPE.PATH;
+                if (tiles[x, z] == TILE_TYPE.UNASSIGNED)
+                    tiles[x, z] = TILE_TYPE.PATH;
                 path.Push((x, z));
                 int randomNumber = Random.Range(0, moveOptions.Count);
                 (x, z) = moveOptions[randomNumber];
