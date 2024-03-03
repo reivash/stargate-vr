@@ -17,6 +17,9 @@ public class ChaserAI : MonoBehaviour
     //States
     public float sightRange, attackRange;
     public bool playerInSightRange;
+    public bool damaged;
+    public int health = 10;
+    public int timeoutAttackedColor = 1;
 
     private void Awake()
     {
@@ -32,9 +35,27 @@ public class ChaserAI : MonoBehaviour
 
     private void ChasePlayer()
     {
+        if (damaged) return;
 
         print("Chasing player");
         agent.SetDestination(player.position);
+    }
+
+    public void TakeDamage(int damage) {
+        damaged = true;
+        health -= damage;
+        if (health <= 0) {
+            Destroy(gameObject);
+        }
+        MeshRenderer renderer = GetComponent<MeshRenderer>();
+        renderer.material.color = Color.red;
+        Invoke(nameof(Resume), timeoutAttackedColor);
+    }
+
+    private void Resume() {
+        damaged = false;
+        MeshRenderer renderer = GetComponent<MeshRenderer>();
+        renderer.material.color = Color.white;
     }
 
     private void OnDrawGizmosSelected()
