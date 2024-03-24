@@ -7,7 +7,7 @@ using static UnityEngine.XR.OpenXR.Features.Interactions.DPadInteraction;
 public class ChaserAI : MonoBehaviour
 {
     public NavMeshAgent agent;
-    public MeshRenderer meshRenderer;
+    private MeshRenderer meshRenderer;
     public Rigidbody rigidBody;
     AudioSource audioSource;
     public Transform player;
