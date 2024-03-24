@@ -22,6 +22,9 @@ public class DungeonSpace : MonoBehaviour
     public static bool[,] matrix = new bool[DUNGEON_SIZE, DUNGEON_SIZE];
     public static float DUNGEON_FLOOR_Y = -0.5f;
 
+    // The amount of space between the room wall and the tiles.
+    public static float TILES_PUZZLE_PADDING = 2;
+
     enum TILE_TYPE { UNASSIGNED, PATH_START, PATH_END, PATH, TRAP };
 
     public static int TILES_SIDE = 5;
@@ -168,22 +171,25 @@ public class DungeonSpace : MonoBehaviour
 
         // Part 2: Generate GameObjects
 
-        float TILES_SIDE_SIZE = DUNGEON_ROOM_SIZE/TILES_SIDE;
+        float TILES_PUZZLE_SIDE_SIZE = DUNGEON_ROOM_SIZE - TILES_PUZZLE_PADDING;
+        float TILES_SIDE_SIZE = TILES_PUZZLE_SIDE_SIZE / TILES_SIDE;
         float HALF_TILES_SIDE_SIZE = TILES_SIDE_SIZE / 2;
 
         float topLeftTileCenterX = GetTransformValueFromDungeonIndex(dungeonX) 
-                                    - (DUNGEON_ROOM_SIZE/2);
+                                    - (TILES_PUZZLE_SIDE_SIZE / 2)
+                                    + HALF_TILES_SIDE_SIZE;
         float topLeftTileCenterZ = GetTransformValueFromDungeonIndex(dungeonZ) 
-                                    - (DUNGEON_ROOM_SIZE/2);
+                                    - (TILES_PUZZLE_SIDE_SIZE / 2)
+                                    + HALF_TILES_SIDE_SIZE;
 
         for (int tileIndexX = 0; tileIndexX < TILES_SIDE; tileIndexX++) {
             for (int tileIndexZ = 0; tileIndexZ < TILES_SIDE; tileIndexZ++) {
-                print($"Spawning tile at: {topLeftTileCenterX+tileIndexX} {topLeftTileCenterZ+tileIndexZ}");
-                Instantiate(goodTilePrefab, 
+                print($"Spawning tile at: {topLeftTileCenterX + tileIndexX} {topLeftTileCenterZ + tileIndexZ}");
+                Instantiate(goodTilePrefab,
                             new Vector3(
-                                topLeftTileCenterX + tileIndexX,
+                                topLeftTileCenterX + (tileIndexX * TILES_SIDE_SIZE),
                                 dungeonFloorY, 
-                                topLeftTileCenterZ + tileIndexZ),
+                                topLeftTileCenterZ + (tileIndexZ * TILES_SIDE_SIZE)),
                                 Quaternion.identity);
             }
         }
