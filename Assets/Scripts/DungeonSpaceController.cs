@@ -172,20 +172,18 @@ public class DungeonSpace : MonoBehaviour
         float HALF_TILES_SIDE_SIZE = TILES_SIDE_SIZE / 2;
 
         float topLeftTileCenterX = GetTransformValueFromDungeonIndex(dungeonX) 
-                                    - (DUNGEON_ROOM_SIZE/2) 
-                                    + HALF_TILES_SIDE_SIZE;
+                                    - (DUNGEON_ROOM_SIZE/2);
         float topLeftTileCenterZ = GetTransformValueFromDungeonIndex(dungeonZ) 
-                                    - (DUNGEON_ROOM_SIZE/2) 
-                                    + HALF_TILES_SIDE_SIZE;
+                                    - (DUNGEON_ROOM_SIZE/2);
 
         for (int tileIndexX = 0; tileIndexX < TILES_SIDE; tileIndexX++) {
             for (int tileIndexZ = 0; tileIndexZ < TILES_SIDE; tileIndexZ++) {
                 print($"Spawning tile at: {topLeftTileCenterX+tileIndexX} {topLeftTileCenterZ+tileIndexZ}");
                 Instantiate(goodTilePrefab, 
                             new Vector3(
-                                topLeftTileCenterX + (tileIndexX * 1),
+                                topLeftTileCenterX + tileIndexX,
                                 dungeonFloorY, 
-                                topLeftTileCenterZ + (tileIndexZ * 1)),
+                                topLeftTileCenterZ + tileIndexZ),
                                 Quaternion.identity);
             }
         }
