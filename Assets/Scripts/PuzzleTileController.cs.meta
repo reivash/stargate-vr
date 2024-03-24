@@ -7,6 +7,8 @@ MonoImporter:
   - meshRenderer: {instanceID: 0}
   - gameOverCameraOverlay: {fileID: 408836236963733969, guid: c13963bbfd7e6a145b89479fc8c47c0c,
       type: 3}
+  - audioSource: {instanceID: 0}
+  - clip: {fileID: 8300000, guid: 91187212b91bb11488aaca5b9609a23b, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

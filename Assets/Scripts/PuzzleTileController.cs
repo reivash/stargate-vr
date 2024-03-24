@@ -10,6 +10,12 @@ public class PuzzleTileController : MonoBehaviour
     public TILE_TYPE type;
     private Color defaultColor;
     public GameObject gameOverCameraOverlay;
+    public AudioSource audioSource;
+
+    private void Awake()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
 
     private void Start()
     {
@@ -39,6 +45,9 @@ public class PuzzleTileController : MonoBehaviour
         GameObject gameOverOverlay = Instantiate(gameOverCameraOverlay);
         Canvas canvas = gameOverOverlay.GetComponent<Canvas>();
         canvas.worldCamera = GameObject.FindFirstObjectByType<Camera>();
+        audioSource.Play();
+
+        // TODO: Stop player movement.
     }
 
     private void OnTriggerExit(Collider other)
