@@ -23,7 +23,7 @@ public class DungeonSpace : MonoBehaviour
     public static float DUNGEON_FLOOR_Y = -0.5f;
 
     // The amount of space between the room wall and the tiles.
-    public static float TILES_PUZZLE_PADDING = 2;
+    public static float TILES_PUZZLE_PADDING = 0.5f;
 
     enum TILE_TYPE { UNASSIGNED, PATH_START, PATH_END, PATH, TRAP };
 
