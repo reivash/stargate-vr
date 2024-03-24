@@ -59,11 +59,11 @@ public class DungeonSpace : MonoBehaviour
                         new Vector3(GetTransformValueFromDungeonIndex(x), 
                         0, 
                         GetTransformValueFromDungeonIndex(z)), Quaternion.identity);
-            CreateFloorPuzzleDungeon();
+            CreateFloorPuzzleDungeon(x, z);
         }
     }
 
-    private void CreateFloorPuzzleDungeon() {
+    private void CreateFloorPuzzleDungeon(int dungeonX, int dungeonZ) {
         // Part 1: Generate maze with one possible path. Mark the rest as traps.
         TILE_TYPE[,] tiles = new TILE_TYPE[TILES_SIDE, TILES_SIDE];
 
@@ -170,20 +170,21 @@ public class DungeonSpace : MonoBehaviour
         float TILES_SIDE_SIZE = DUNGEON_ROOM_SIZE/TILES_SIDE;
         float HALF_TILES_SIDE_SIZE = TILES_SIDE_SIZE / 2;
 
-        float topLeftTileCenterX = GetTransformValueFromDungeonIndex(x) 
+        float topLeftTileCenterX = GetTransformValueFromDungeonIndex(dungeonX) 
                                     - (DUNGEON_ROOM_SIZE/2) 
                                     + HALF_TILES_SIDE_SIZE;
-        float topLeftTileCenterZ = GetTransformValueFromDungeonIndex(z) 
+        float topLeftTileCenterZ = GetTransformValueFromDungeonIndex(dungeonZ) 
                                     - (DUNGEON_ROOM_SIZE/2) 
                                     + HALF_TILES_SIDE_SIZE;
 
         for (int tileIndexX = 0; tileIndexX < TILES_SIDE; tileIndexX++) {
             for (int tileIndexZ = 0; tileIndexZ < TILES_SIDE; tileIndexZ++) {
+                print($"Spawning tile at: {topLeftTileCenterX+tileIndexX} {topLeftTileCenterZ+tileIndexZ}");
                 Instantiate(goodTilePrefab, 
                             new Vector3(
-                                topLeftTileCenterX + (tileIndexX * TILES_SIDE_SIZE), 
+                                topLeftTileCenterX + (tileIndexX * 1), 
                                 0, 
-                                topLeftTileCenterZ + (tileIndexZ * TILES_SIDE_SIZE)),
+                                topLeftTileCenterZ + (tileIndexZ * 1)),
                                 Quaternion.identity);
             }
         }
