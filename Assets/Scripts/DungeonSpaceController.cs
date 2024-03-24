@@ -11,10 +11,7 @@ public class DungeonSpace : MonoBehaviour
 
     public GameObject dungeonSpacePrefab;
 
-    public GameObject goodTilePrefab;
-    // public GameObject badTilePrefab;
-    // public GameObject startTilePrefab;
-    // public GameObject endTilePrefab;
+    public GameObject tilePrefab;
 
     public static int DUNGEON_SIZE = 1024;
     public static int HALF_DUNGEON_SIZE = DUNGEON_SIZE >> 1;
@@ -184,13 +181,14 @@ public class DungeonSpace : MonoBehaviour
 
         for (int tileIndexX = 0; tileIndexX < TILES_SIDE; tileIndexX++) {
             for (int tileIndexZ = 0; tileIndexZ < TILES_SIDE; tileIndexZ++) {
-                print($"Spawning tile at: {topLeftTileCenterX + tileIndexX} {topLeftTileCenterZ + tileIndexZ}");
-                Instantiate(goodTilePrefab,
+                //print($"Spawning tile at: {topLeftTileCenterX + tileIndexX} {topLeftTileCenterZ + tileIndexZ}");
+                GameObject tile = Instantiate(tilePrefab,
                             new Vector3(
                                 topLeftTileCenterX + (tileIndexX * TILES_SIDE_SIZE),
                                 dungeonFloorY, 
                                 topLeftTileCenterZ + (tileIndexZ * TILES_SIDE_SIZE)),
                                 Quaternion.identity);
+                tile.GetComponent<PuzzleTileController>().type = GetTileType(tiles[tileIndexX, tileIndexZ]);
             }
         }
 
@@ -204,6 +202,22 @@ public class DungeonSpace : MonoBehaviour
 
     }
 
+    PuzzleTileController.TILE_TYPE GetTileType(TILE_TYPE type) {
+        switch (type)
+        {
+            case TILE_TYPE.TRAP:
+                return PuzzleTileController.TILE_TYPE.BAD;
+            case TILE_TYPE.PATH:
+                return PuzzleTileController.TILE_TYPE.GOOD;
+            case TILE_TYPE.PATH_START:
+                return PuzzleTileController.TILE_TYPE.START;
+            case TILE_TYPE.PATH_END:
+                return PuzzleTileController.TILE_TYPE.END;
+            default:
+                return PuzzleTileController.TILE_TYPE.GOOD;
+        }
+    }
+         
     bool IsValidTileForPath(TILE_TYPE tileType) {
         return tileType == TILE_TYPE.UNASSIGNED || tileType == TILE_TYPE.PATH_END;
     }
