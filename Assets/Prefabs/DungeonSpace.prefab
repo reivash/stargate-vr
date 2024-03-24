@@ -3209,7 +3209,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dungeonSpacePrefab: {fileID: 7736109784168305727}
-  goodTilePrefab: {fileID: 69919846147511349, guid: 1f91713305f4a644488006a1fff91f8e,
+  tilePrefab: {fileID: 69919846147511349, guid: 1f91713305f4a644488006a1fff91f8e,
     type: 3}
 --- !u!1 &8380666811438024199
 GameObject:

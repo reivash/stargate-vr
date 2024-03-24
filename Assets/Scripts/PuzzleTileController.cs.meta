@@ -3,7 +3,10 @@ guid: d5dd6fe5e5182474f8990b8a74c5419a
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - meshRenderer: {instanceID: 0}
+  - gameOverCameraOverlay: {fileID: 408836236963733969, guid: c13963bbfd7e6a145b89479fc8c47c0c,
+      type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

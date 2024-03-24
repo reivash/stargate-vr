@@ -119,3 +119,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   meshRenderer: {fileID: 0}
+  type: 0
+  gameOverCameraOverlay: {fileID: 408836236963733969, guid: c13963bbfd7e6a145b89479fc8c47c0c,
+    type: 3}

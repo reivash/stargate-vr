@@ -9,6 +9,7 @@ public class PuzzleTileController : MonoBehaviour
     public enum TILE_TYPE { GOOD, BAD, START, END };
     public TILE_TYPE type;
     private Color defaultColor;
+    public GameObject gameOverCameraOverlay;
 
     private void Start()
     {
@@ -28,9 +29,18 @@ public class PuzzleTileController : MonoBehaviour
             }
             else if (type == TILE_TYPE.BAD) {
                 meshRenderer.material.color = Color.red;
+                // Trigger Game Over in 200ms.
+                Invoke(nameof(TriggerGameOver), .2f);
             }
         }
     }
+
+    void TriggerGameOver() {
+        GameObject gameOverOverlay = Instantiate(gameOverCameraOverlay);
+        Canvas canvas = gameOverOverlay.GetComponent<Canvas>();
+        canvas.worldCamera = GameObject.FindFirstObjectByType<Camera>();
+    }
+
     private void OnTriggerExit(Collider other)
     {
         if (type == TILE_TYPE.BAD)
