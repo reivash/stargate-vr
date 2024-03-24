@@ -10,7 +10,7 @@ public class PuzzleTileController : MonoBehaviour
     public TILE_TYPE type;
     private Color defaultColor;
 
-    private void Awake()
+    private void Start()
     {
         meshRenderer = GetComponent<MeshRenderer>();
         defaultColor = meshRenderer.material.color;
