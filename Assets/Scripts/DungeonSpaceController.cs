@@ -11,6 +11,11 @@ public class DungeonSpace : MonoBehaviour
 
     public GameObject dungeonSpacePrefab;
 
+    public GameObject goodTilePrefab;
+    // public GameObject badTilePrefab;
+    // public GameObject startTilePrefab;
+    // public GameObject endTilePrefab;
+
     public static int DUNGEON_SIZE = 1024;
     public static int HALF_DUNGEON_SIZE = DUNGEON_SIZE >> 1;
     public static int DUNGEON_ROOM_SIZE = 5;
@@ -160,7 +165,37 @@ public class DungeonSpace : MonoBehaviour
         }
         print(stringBuilder.ToString());
 
-        // Part 2: Generate GameObjects.
+        // Part 2: Generate GameObjects
+
+        float TILES_SIDE_SIZE = DUNGEON_ROOM_SIZE/TILES_SIDE;
+        float HALF_TILES_SIDE_SIZE = TILES_SIDE_SIZE / 2;
+
+        float topLeftTileCenterX = GetTransformValueFromDungeonIndex(x) 
+                                    - (DUNGEON_ROOM_SIZE/2) 
+                                    + HALF_TILES_SIDE_SIZE;
+        float topLeftTileCenterZ = GetTransformValueFromDungeonIndex(z) 
+                                    - (DUNGEON_ROOM_SIZE/2) 
+                                    + HALF_TILES_SIDE_SIZE;
+
+        for (int tileIndexX = 0; tileIndexX < TILES_SIDE; tileIndexX++) {
+            for (int tileIndexZ = 0; tileIndexZ < TILES_SIDE; tileIndexZ++) {
+                Instantiate(goodTilePrefab, 
+                            new Vector3(
+                                topLeftTileCenterX + (tileIndexX * TILES_SIDE_SIZE), 
+                                0, 
+                                topLeftTileCenterZ + (tileIndexZ * TILES_SIDE_SIZE)),
+                                Quaternion.identity);
+            }
+        }
+
+        // Go through all tiles to generate from that center
+
+
+        // Prototype: Spawn a cube in each area of the space, being 0, 0 of the cube the center.
+        // new Vector3(GetTransformValueFromDungeonIndex(x), 
+        //                 0, 
+        //                 GetTransformValueFromDungeonIndex(z));
+
     }
 
     bool IsValidTileForPath(TILE_TYPE tileType) {
