@@ -20,6 +20,7 @@ public class DungeonSpace : MonoBehaviour
     public static int HALF_DUNGEON_SIZE = DUNGEON_SIZE >> 1;
     public static int DUNGEON_ROOM_SIZE = 5;
     public static bool[,] matrix = new bool[DUNGEON_SIZE, DUNGEON_SIZE];
+    public static float DUNGEON_FLOOR_Y = -0.5f;
 
     enum TILE_TYPE { UNASSIGNED, PATH_START, PATH_END, PATH, TRAP };
 
@@ -59,11 +60,11 @@ public class DungeonSpace : MonoBehaviour
                         new Vector3(GetTransformValueFromDungeonIndex(x), 
                         0, 
                         GetTransformValueFromDungeonIndex(z)), Quaternion.identity);
-            CreateFloorPuzzleDungeon(x, z);
+            CreateFloorPuzzleDungeon(x, DUNGEON_FLOOR_Y, z);
         }
     }
 
-    private void CreateFloorPuzzleDungeon(int dungeonX, int dungeonZ) {
+    private void CreateFloorPuzzleDungeon(int dungeonX, float dungeonFloorY, int dungeonZ) {
         // Part 1: Generate maze with one possible path. Mark the rest as traps.
         TILE_TYPE[,] tiles = new TILE_TYPE[TILES_SIDE, TILES_SIDE];
 
@@ -182,8 +183,8 @@ public class DungeonSpace : MonoBehaviour
                 print($"Spawning tile at: {topLeftTileCenterX+tileIndexX} {topLeftTileCenterZ+tileIndexZ}");
                 Instantiate(goodTilePrefab, 
                             new Vector3(
-                                topLeftTileCenterX + (tileIndexX * 1), 
-                                0, 
+                                topLeftTileCenterX + (tileIndexX * 1),
+                                dungeonFloorY, 
                                 topLeftTileCenterZ + (tileIndexZ * 1)),
                                 Quaternion.identity);
             }
