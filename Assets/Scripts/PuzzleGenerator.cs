@@ -2,14 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
-using static PuzzleTileController;
 
-public class PuzzleGenerator : MonoBehaviour
-{
-    private static float DUNGEON_FLOOR_Y = -0.5f;
+using static Coordinates;
+using static Constants;
+
+// TODO: Rename to HiddenPath or something more descritive.
+public class PuzzleGenerator : MonoBehaviour {
+    
+    public static GameObject tilePrefab;
 
     // The amount of space between the room wall and the tiles.
-    private static float TILES_PUZZLE_PADDING = 0.5f; public static int TILES_SIDE = 5;
+    private static float TILES_PUZZLE_PADDING = 0.5f;
+    private static int TILES_SIDE = 5;
 
     private enum TILE_TYPE { UNASSIGNED, PATH_START, PATH_END, PATH, TRAP };
 
@@ -17,8 +21,25 @@ public class PuzzleGenerator : MonoBehaviour
         return tileType == TILE_TYPE.UNASSIGNED || tileType == TILE_TYPE.PATH_END;
     }
 
-    public static void GeneratePuzzle(int dungeonX, float dungeonFloorY, int dungeonZ)
-    {
+    private static PuzzleTileController.TILE_TYPE GetTileType(TILE_TYPE type) {
+        switch (type) {
+            case TILE_TYPE.TRAP:
+                return PuzzleTileController.TILE_TYPE.BAD;
+            case TILE_TYPE.PATH:
+                return PuzzleTileController.TILE_TYPE.GOOD;
+            case TILE_TYPE.PATH_START:
+                return PuzzleTileController.TILE_TYPE.START;
+            case TILE_TYPE.PATH_END:
+                return PuzzleTileController.TILE_TYPE.END;
+            default:
+                return PuzzleTileController.TILE_TYPE.GOOD;
+        }
+    }
+
+    public static void GeneratePuzzle(CardinalDirection start, CardinalDirection end, int dungeonX, float dungeonFloorY, int dungeonZ) {
+        if (start == end) {
+            throw new System.Exception("The puzzle start and end can't be the same");
+        }
 
         // Part 1: Generate maze with one possible path. Mark the rest as traps.
         TILE_TYPE[,] tiles = new TILE_TYPE[TILES_SIDE, TILES_SIDE];
@@ -29,12 +50,44 @@ public class PuzzleGenerator : MonoBehaviour
                 tiles[i, j] = TILE_TYPE.UNASSIGNED;
             }
         }
-        tiles[0, TILES_SIDE / 2] = TILE_TYPE.PATH_START;
-        tiles[TILES_SIDE - 1, TILES_SIDE / 2] = TILE_TYPE.PATH_END;
 
+        // Assign start and end. 
+        int x = -1, z = -1;
+        if (start == CardinalDirection.North) {
+            x = 0;
+            z = TILES_SIDE / 2;
+        }
+        if (start == CardinalDirection.South) {
+            x = TILES_SIDE - 1;
+            z = TILES_SIDE / 2;
+        }
+        if (start == CardinalDirection.East) {
+            x = TILES_SIDE / 2;
+            z = TILES_SIDE - 1;
+        }
+        if (start == CardinalDirection.West) {
+            x = TILES_SIDE / 2;
+            z = 0;
+        }
+        tiles[x, z] = TILE_TYPE.PATH_START;
+
+
+        if (end == CardinalDirection.North) {
+            tiles[TILES_SIDE - 1, TILES_SIDE / 2] = TILE_TYPE.PATH_END;
+        }
+        if (end == CardinalDirection.South) {
+            tiles[0, TILES_SIDE / 2] = TILE_TYPE.PATH_END;
+        }
+        if (end == CardinalDirection.East) {
+            tiles[TILES_SIDE / 2, TILES_SIDE - 1] = TILE_TYPE.PATH_END;
+        }
+        if (end == CardinalDirection.West) {
+            tiles[TILES_SIDE / 2, 0] = TILE_TYPE.PATH_END;
+        }
+
+
+        // Generate tile puzzle.
         Stack<(int x, int z)> path = new Stack<(int x, int z)>();
-        int x = 0, z = TILES_SIDE / 2;
-
         List<(int x, int z)> moveOptions = new List<(int x, int z)>();
         while (true) {
             // If final cell, break.
