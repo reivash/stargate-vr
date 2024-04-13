@@ -32,7 +32,7 @@ public class DungeonSpace : MonoBehaviour
         {
             int x = GetDungeonIndexFromTransformValue(transform.position.x);
             int z = GetDungeonIndexFromTransformValue(transform.position.z);
-            print($"Player entered the Dungeon room ({x}, {z})");
+            //print($"Player entered the Dungeon room ({x}, {z})");
             ExpandDungeon();
             this.enabled = false;
         }
@@ -85,7 +85,7 @@ public class DungeonSpace : MonoBehaviour
         while (true) {
             // If final cell, break.
             if (tiles[x, z] == TILE_TYPE.PATH_END) {
-                print("Final tile reached");
+                //print("Final tile reached");
                 break;
             }
 
@@ -164,7 +164,7 @@ public class DungeonSpace : MonoBehaviour
             }
             stringBuilder.Append("\n");
         }
-        print(stringBuilder.ToString());
+        //print(stringBuilder.ToString());
 
         // Part 2: Generate GameObjects
 
@@ -236,7 +236,7 @@ public class DungeonSpace : MonoBehaviour
     {
         if (x < 0 || z < 0 || x >= DUNGEON_SIZE || z >= DUNGEON_SIZE)
         {
-            print($"Dungeon limit reached ({x}, {z})");
+            //print($"Dungeon limit reached ({x}, {z})");
             return false;
         }
 
