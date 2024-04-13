@@ -54,35 +54,35 @@ public class PuzzleGenerator : MonoBehaviour {
         // Assign start and end. 
         int x = -1, z = -1;
         if (start == CardinalDirection.North) {
-            x = 0;
-            z = TILES_SIDE / 2;
-        }
-        if (start == CardinalDirection.South) {
-            x = TILES_SIDE - 1;
-            z = TILES_SIDE / 2;
-        }
-        if (start == CardinalDirection.East) {
             x = TILES_SIDE / 2;
             z = TILES_SIDE - 1;
         }
-        if (start == CardinalDirection.West) {
+        if (start == CardinalDirection.South) {
             x = TILES_SIDE / 2;
             z = 0;
+        }
+        if (start == CardinalDirection.East) {
+            x = TILES_SIDE - 1;
+            z = TILES_SIDE / 2;
+        }
+        if (start == CardinalDirection.West) {
+            x = 0;
+            z = TILES_SIDE / 2;
         }
         tiles[x, z] = TILE_TYPE.PATH_START;
 
 
         if (end == CardinalDirection.North) {
-            tiles[TILES_SIDE - 1, TILES_SIDE / 2] = TILE_TYPE.PATH_END;
-        }
-        if (end == CardinalDirection.South) {
-            tiles[0, TILES_SIDE / 2] = TILE_TYPE.PATH_END;
-        }
-        if (end == CardinalDirection.East) {
             tiles[TILES_SIDE / 2, TILES_SIDE - 1] = TILE_TYPE.PATH_END;
         }
-        if (end == CardinalDirection.West) {
+        if (end == CardinalDirection.South) {
             tiles[TILES_SIDE / 2, 0] = TILE_TYPE.PATH_END;
+        }
+        if (end == CardinalDirection.East) {
+            tiles[TILES_SIDE - 1, TILES_SIDE / 2] = TILE_TYPE.PATH_END;
+        }
+        if (end == CardinalDirection.West) {
+            tiles[0, TILES_SIDE / 2] = TILE_TYPE.PATH_END;
         }
 
 
