@@ -5,10 +5,13 @@ using UnityEngine.Rendering.Universal.Internal;
 
 public class FloorGenerator : MonoBehaviour {
 
-    private const int MIN_ROOMS = 5;
-    private const int MAX_ROOMS = 8;
-    private const int DUNGEON_SIZE = 16;
+    public GameObject dungeonSpacePrefab;
+
+    private const int MIN_ROOMS = 12;
+    private const int MAX_ROOMS = 16;
+    private const int DUNGEON_SIZE = 32;
     private const int HALF_DUNGEON_SIZE = DUNGEON_SIZE >> 1;
+    private static int DUNGEON_ROOM_SIZE = 5;
 
     private int numRooms;
     private static List<Room> roomsList = new List<Room>();
@@ -75,8 +78,7 @@ public class FloorGenerator : MonoBehaviour {
         print(dungeon);
     }
 
-    void Start() {
-        print("Start FloorGenerator!");
+    void GenerateFloorMap() {
         numRooms = MIN_ROOMS + (int)(Random.value * (MAX_ROOMS - MIN_ROOMS));
 
         // Generate starting room.
@@ -124,8 +126,40 @@ public class FloorGenerator : MonoBehaviour {
         }
 
         roomsList[idx].type = Room.Type.END;
-
         PrintDungeonLayout();
+    }
+    float GetTransformValueFromDungeonIndex(int dungeon_index) {
+        return (dungeon_index - HALF_DUNGEON_SIZE) * DUNGEON_ROOM_SIZE;
+    }
+
+    void MaybeDestroyChildGameObject(GameObject gameObject, string childName) {
+        Transform westDoor = gameObject.transform.Find(childName);
+        if (westDoor != null) {
+            UnityEngine.Object.DestroyImmediate(westDoor.gameObject);
+            print($"GameObject destroyed! ({childName})");
+        } else {
+            print("Could not find " + childName);
+        }
+    }
+    void GenerateGameObjects() {
+        for (int i = 0; i < roomsList.Count; i++) {
+            Room room = roomsList[i];
+            GameObject newRoom = Instantiate(dungeonSpacePrefab,
+                        new Vector3(GetTransformValueFromDungeonIndex(room.dx),
+                        0,
+                        GetTransformValueFromDungeonIndex(room.dz)), Quaternion.identity);
+
+            if (roomsMatrix[room.dx - 1, room.dz - 0] != null) { MaybeDestroyChildGameObject(newRoom, "WestWall/WestDoorFrame/WestDoor"); }
+            if (roomsMatrix[room.dx - 0, room.dz - 1] != null) { MaybeDestroyChildGameObject(newRoom, "SouthWall/SouthDoorFrame/SouthDoor"); }
+            if (roomsMatrix[room.dx + 1, room.dz + 0] != null) { MaybeDestroyChildGameObject(newRoom, "EastWall/EastDoorFrame/EastDoor"); }
+            if (roomsMatrix[room.dx + 0, room.dz + 1] != null) { MaybeDestroyChildGameObject(newRoom, "NorthWall/NorthDoorFrame/NorthDoor"); }
+        }
+    }
+
+    void Start() {
+        print("Start FloorGenerator!");
+        GenerateFloorMap();
+        GenerateGameObjects();
         print("End FloorGenerator!");
     }
 }
