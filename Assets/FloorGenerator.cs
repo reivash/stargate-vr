@@ -3,15 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering.Universal.Internal;
 
+using static Constants; 
+
 public class FloorGenerator : MonoBehaviour {
 
     public GameObject dungeonSpacePrefab;
-
-    private const int MIN_ROOMS = 12;
-    private const int MAX_ROOMS = 16;
-    private const int DUNGEON_SIZE = 32;
-    private const int HALF_DUNGEON_SIZE = DUNGEON_SIZE >> 1;
-    private static int DUNGEON_ROOM_SIZE = 5;
 
     private int numRooms;
     private static List<Room> roomsList = new List<Room>();
@@ -128,10 +124,6 @@ public class FloorGenerator : MonoBehaviour {
         roomsList[idx].type = Room.Type.END;
         PrintDungeonLayout();
     }
-    float GetTransformValueFromDungeonIndex(int dungeon_index) {
-        return (dungeon_index - HALF_DUNGEON_SIZE) * DUNGEON_ROOM_SIZE;
-    }
-
     void MaybeDestroyChildGameObject(GameObject gameObject, string childName) {
         Transform westDoor = gameObject.transform.Find(childName);
         if (westDoor != null) {
@@ -149,6 +141,7 @@ public class FloorGenerator : MonoBehaviour {
                         0,
                         GetTransformValueFromDungeonIndex(room.dz)), Quaternion.identity);
 
+            // Connect adjacent rooms.
             if (roomsMatrix[room.dx - 1, room.dz - 0] != null) { MaybeDestroyChildGameObject(newRoom, "WestWall/WestDoorFrame/WestDoor"); }
             if (roomsMatrix[room.dx - 0, room.dz - 1] != null) { MaybeDestroyChildGameObject(newRoom, "SouthWall/SouthDoorFrame/SouthDoor"); }
             if (roomsMatrix[room.dx + 1, room.dz + 0] != null) { MaybeDestroyChildGameObject(newRoom, "EastWall/EastDoorFrame/EastDoor"); }
