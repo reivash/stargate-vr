@@ -3,11 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering.Universal.Internal;
 
-using static Constants; 
+using static Coordinates;
+using static PuzzleGenerator;
+using static Constants;
 
 public class FloorGenerator : MonoBehaviour {
 
     public GameObject dungeonSpacePrefab;
+    public GameObject puzzleGeneratorGameObject;
+    private PuzzleGenerator puzzleGenerator;
 
     private int numRooms;
     private static List<Room> roomsList = new List<Room>();
@@ -38,6 +42,13 @@ public class FloorGenerator : MonoBehaviour {
         public void GeneratePuzzle() {
             this.type = Type.PUZZLE;
             // TODO: Implement
+        }
+    }
+
+    public void Awake() {
+        puzzleGenerator = puzzleGeneratorGameObject.GetComponent<PuzzleGenerator>();
+        if (puzzleGenerator == null ) {
+            throw new System.Exception("Could not find the PuzzleGenerator");
         }
     }
 
@@ -124,13 +135,13 @@ public class FloorGenerator : MonoBehaviour {
         roomsList[idx].type = Room.Type.END;
         PrintDungeonLayout();
     }
-    void MaybeDestroyChildGameObject(GameObject gameObject, string childName) {
+    void DestroyChildGameObject(GameObject gameObject, string childName) {
         Transform westDoor = gameObject.transform.Find(childName);
         if (westDoor != null) {
             UnityEngine.Object.DestroyImmediate(westDoor.gameObject);
             print($"GameObject destroyed! ({childName})");
         } else {
-            print("Could not find " + childName);
+            throw new System.Exception("Could not find " + childName);
         }
     }
     void GenerateGameObjects() {
@@ -142,10 +153,15 @@ public class FloorGenerator : MonoBehaviour {
                         GetTransformValueFromDungeonIndex(room.dz)), Quaternion.identity);
 
             // Connect adjacent rooms.
-            if (roomsMatrix[room.dx - 1, room.dz - 0] != null) { MaybeDestroyChildGameObject(newRoom, "WestWall/WestDoorFrame/WestDoor"); }
-            if (roomsMatrix[room.dx - 0, room.dz - 1] != null) { MaybeDestroyChildGameObject(newRoom, "SouthWall/SouthDoorFrame/SouthDoor"); }
-            if (roomsMatrix[room.dx + 1, room.dz + 0] != null) { MaybeDestroyChildGameObject(newRoom, "EastWall/EastDoorFrame/EastDoor"); }
-            if (roomsMatrix[room.dx + 0, room.dz + 1] != null) { MaybeDestroyChildGameObject(newRoom, "NorthWall/NorthDoorFrame/NorthDoor"); }
+            List<CardinalDirection> adjacentRoomsDirections = new List<CardinalDirection>();
+            if (roomsMatrix[room.dx - 1, room.dz - 0] != null) { DestroyChildGameObject(newRoom, "WestWall/WestDoorFrame/WestDoor"); adjacentRoomsDirections.Add(CardinalDirection.West); }
+            if (roomsMatrix[room.dx - 0, room.dz - 1] != null) { DestroyChildGameObject(newRoom, "SouthWall/SouthDoorFrame/SouthDoor"); adjacentRoomsDirections.Add(CardinalDirection.South); }
+            if (roomsMatrix[room.dx + 1, room.dz + 0] != null) { DestroyChildGameObject(newRoom, "EastWall/EastDoorFrame/EastDoor"); adjacentRoomsDirections.Add(CardinalDirection.East); }
+            if (roomsMatrix[room.dx + 0, room.dz + 1] != null) { DestroyChildGameObject(newRoom, "NorthWall/NorthDoorFrame/NorthDoor"); adjacentRoomsDirections.Add(CardinalDirection.North); }
+
+            if (adjacentRoomsDirections.Count == 2) {
+                puzzleGenerator.GeneratePuzzle(adjacentRoomsDirections[0], adjacentRoomsDirections[1], room.dx, DUNGEON_FLOOR_Y, room.dz);
+            }
         }
     }
 

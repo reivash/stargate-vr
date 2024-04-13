@@ -845,6 +845,50 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &820850149
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 820850151}
+  - component: {fileID: 820850150}
+  m_Layer: 0
+  m_Name: PuzzleGenerator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &820850150
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 820850149}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 890706923b4357e48be5210b2db5ae3f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &820850151
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 820850149}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 3.1757772, y: -5.911347, z: 2.5613043}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0
@@ -3025,114 +3069,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &3356916845484212
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 20697166818942849, guid: 40d756501bd62244fb4f52d69b91d67b,
-        type: 3}
-      propertyPath: m_Name
-      value: EastDoorFrame
-      objectReference: {fileID: 0}
-    - target: {fileID: 33636267823161105, guid: 40d756501bd62244fb4f52d69b91d67b,
-        type: 3}
-      propertyPath: m_Name
-      value: WestDoorFrame
-      objectReference: {fileID: 0}
-    - target: {fileID: 1462966792335153028, guid: 40d756501bd62244fb4f52d69b91d67b,
-        type: 3}
-      propertyPath: m_Name
-      value: WestWall
-      objectReference: {fileID: 0}
-    - target: {fileID: 2055534749434962547, guid: 40d756501bd62244fb4f52d69b91d67b,
-        type: 3}
-      propertyPath: m_Name
-      value: NorthWall
-      objectReference: {fileID: 0}
-    - target: {fileID: 2941511864697794992, guid: 40d756501bd62244fb4f52d69b91d67b,
-        type: 3}
-      propertyPath: m_Name
-      value: SouthDoorFrame
-      objectReference: {fileID: 0}
-    - target: {fileID: 4718068667294954752, guid: 40d756501bd62244fb4f52d69b91d67b,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4718068667294954752, guid: 40d756501bd62244fb4f52d69b91d67b,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4718068667294954752, guid: 40d756501bd62244fb4f52d69b91d67b,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4718068667294954752, guid: 40d756501bd62244fb4f52d69b91d67b,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4718068667294954752, guid: 40d756501bd62244fb4f52d69b91d67b,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4718068667294954752, guid: 40d756501bd62244fb4f52d69b91d67b,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4718068667294954752, guid: 40d756501bd62244fb4f52d69b91d67b,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4718068667294954752, guid: 40d756501bd62244fb4f52d69b91d67b,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4718068667294954752, guid: 40d756501bd62244fb4f52d69b91d67b,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4718068667294954752, guid: 40d756501bd62244fb4f52d69b91d67b,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4811311383893333329, guid: 40d756501bd62244fb4f52d69b91d67b,
-        type: 3}
-      propertyPath: m_Name
-      value: EastWall
-      objectReference: {fileID: 0}
-    - target: {fileID: 5231495733811893005, guid: 40d756501bd62244fb4f52d69b91d67b,
-        type: 3}
-      propertyPath: m_Name
-      value: NorthDoorFrame
-      objectReference: {fileID: 0}
-    - target: {fileID: 6627202986350767710, guid: 40d756501bd62244fb4f52d69b91d67b,
-        type: 3}
-      propertyPath: m_Name
-      value: SouthWall
-      objectReference: {fileID: 0}
-    - target: {fileID: 7736109784168305727, guid: 40d756501bd62244fb4f52d69b91d67b,
-        type: 3}
-      propertyPath: m_Name
-      value: DungeonSpace
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 40d756501bd62244fb4f52d69b91d67b, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -3141,9 +3077,9 @@ SceneRoots:
   - {fileID: 832575519}
   - {fileID: 156106179}
   - {fileID: 452366738}
-  - {fileID: 3356916845484212}
   - {fileID: 1658517129}
   - {fileID: 1195830807}
   - {fileID: 519785464}
   - {fileID: 1727244073}
   - {fileID: 583506690}
+  - {fileID: 820850151}

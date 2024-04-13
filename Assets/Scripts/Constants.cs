@@ -9,4 +9,5 @@ public class Constants
     public const int DUNGEON_SIZE = 32;
     public const int HALF_DUNGEON_SIZE = DUNGEON_SIZE >> 1;
     public const int DUNGEON_ROOM_SIZE = 5;
+    public const float DUNGEON_FLOOR_Y = -0.5f;
 }

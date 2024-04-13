@@ -9,7 +9,7 @@ using static Constants;
 // TODO: Rename to HiddenPath or something more descritive.
 public class PuzzleGenerator : MonoBehaviour {
     
-    public static GameObject tilePrefab;
+    public GameObject tilePrefab;
 
     // The amount of space between the room wall and the tiles.
     private static float TILES_PUZZLE_PADDING = 0.5f;
@@ -36,7 +36,7 @@ public class PuzzleGenerator : MonoBehaviour {
         }
     }
 
-    public static void GeneratePuzzle(CardinalDirection start, CardinalDirection end, int dungeonX, float dungeonFloorY, int dungeonZ) {
+    public void GeneratePuzzle(CardinalDirection start, CardinalDirection end, int dungeonX, float dungeonFloorY, int dungeonZ) {
         if (start == end) {
             throw new System.Exception("The puzzle start and end can't be the same");
         }
