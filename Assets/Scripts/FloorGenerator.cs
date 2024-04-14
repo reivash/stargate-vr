@@ -24,6 +24,7 @@ public class FloorGenerator : MonoBehaviour {
     private int numRooms;
     private List<Room> roomsList = new List<Room>();
     private Room[,] roomsMatrix = new Room[DUNGEON_SIZE, DUNGEON_SIZE];
+    private int numPuzzleRooms = 0;
     private int numWeaponRooms = 0;
     private int numMonsterRooms = 0;
 
@@ -186,9 +187,9 @@ public class FloorGenerator : MonoBehaviour {
             }
 
             // If room is not START or END and has two open doors, set as PUZZLE.
-            if (adjacentRoomsDirections.Count == 2 ) {
+            if (adjacentRoomsDirections.Count == 2 && numPuzzleRooms < PUZZLE_ROOMS) {
                 puzzleGenerator.GenerateRoom(adjacentRoomsDirections[0], adjacentRoomsDirections[1], room.dx, DUNGEON_FLOOR_Y, room.dz);
-                room.type = Room.Type.PUZZLE;
+                numPuzzleRooms++;
             } else if (numWeaponRooms < WEAPON_ROOMS) {
                 weaponRoomGenerator.GenerateRoom(room.dx, room.dz);
                 numWeaponRooms++;
