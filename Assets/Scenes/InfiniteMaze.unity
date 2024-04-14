@@ -2255,7 +2255,7 @@ PrefabInstance:
     - target: {fileID: 4122166672375724912, guid: 28881a8308b15144fb65c4ddb6e72e20,
         type: 3}
       propertyPath: m_Name
-      value: PuzzleGenerator
+      value: PuzzleRoomGenerator
       objectReference: {fileID: 0}
     - target: {fileID: 8725475476496130259, guid: 28881a8308b15144fb65c4ddb6e72e20,
         type: 3}
@@ -2391,7 +2391,7 @@ PrefabInstance:
     - target: {fileID: 1043635123557850490, guid: a86bc66e9b068954aad2f92de7a8415f,
         type: 3}
       propertyPath: m_Name
-      value: StarRoomGenerator
+      value: StargateRoomGenerator
       objectReference: {fileID: 0}
     - target: {fileID: 1516373212487762006, guid: a86bc66e9b068954aad2f92de7a8415f,
         type: 3}
