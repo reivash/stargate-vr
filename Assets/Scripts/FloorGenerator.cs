@@ -16,10 +16,12 @@ public class FloorGenerator : MonoBehaviour {
     public GameObject stargateGeneratorGameObject;
     public GameObject weaponRoomGeneratorGameObject;
     public GameObject monsterRoomGeneratorGameObject;
+    public GameObject roomDecoratorGameObject;
     private PuzzleGenerator puzzleGenerator;
     private StargateGenerator stargateGenerator;
     private WeaponRoomGenerator weaponRoomGenerator;
     private MonsterRoomGenerator monsterRoomGenerator;
+    private RoomDecorator roomDecorator;
 
     private int numRooms;
     private List<Room> roomsList = new List<Room>();
@@ -61,12 +63,16 @@ public class FloorGenerator : MonoBehaviour {
             throw new System.Exception("Could not find the StargateGenerator");
         }
         weaponRoomGenerator = weaponRoomGeneratorGameObject.GetComponent<WeaponRoomGenerator>();
-        if (puzzleGenerator == null) {
+        if (weaponRoomGenerator == null) {
             throw new System.Exception("Could not find the WeaponRoomGenerator");
         }
         monsterRoomGenerator = monsterRoomGeneratorGameObject.GetComponent<MonsterRoomGenerator>();
-        if (puzzleGenerator == null) {
+        if (monsterRoomGenerator == null) {
             throw new System.Exception("Could not find the MonsterRoomGenerator");
+        }
+        roomDecorator = roomDecoratorGameObject.GetComponent<RoomDecorator>();
+        if (roomDecorator == null) {
+            throw new System.Exception("Could not find the RoomDecorator");
         }
     }
 
@@ -178,12 +184,14 @@ public class FloorGenerator : MonoBehaviour {
             if (roomsMatrix[room.dx + 0, room.dz + 1] != null) { DestroyChildGameObject(newRoom, "NorthWall/NorthDoorFrame/NorthDoor"); adjacentRoomsDirections.Add(CardinalDirection.North); }
 
             if (room.type == Room.Type.START) {
+                roomDecorator.DecorateRoom(room.dx, room.dz);
                 continue;
             }
 
             if (room.type == Room.Type.END) {
                 stargateGenerator.SpawnStargate(room.dx, room.dz);
-                    continue;
+                roomDecorator.DecorateRoom(room.dx, room.dz);
+                continue;
             }
 
             // If room is not START or END and has two open doors, set as PUZZLE.
@@ -193,9 +201,11 @@ public class FloorGenerator : MonoBehaviour {
             } else if (numWeaponRooms < WEAPON_ROOMS) {
                 weaponRoomGenerator.GenerateRoom(room.dx, room.dz);
                 numWeaponRooms++;
+                roomDecorator.DecorateRoom(room.dx, room.dz);
             } else if (numMonsterRooms < MONSTER_ROOMS) {
                 monsterRoomGenerator.GenerateRoom(room.dx, room.dz);
                 numMonsterRooms++;
+                roomDecorator.DecorateRoom(room.dx, room.dz);
             }
 
         }

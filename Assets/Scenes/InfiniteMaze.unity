@@ -2164,6 +2164,12 @@ MonoBehaviour:
     m_Reference: {fileID: -6447266317303757838, guid: c348712bda248c246b8c49b3db54643f,
       type: 3}
   m_ButtonPressPoint: 0.5
+--- !u!1 &1568458385 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1243499313801034483, guid: ca7289caeaf476f418fc5026747ec84b,
+    type: 3}
+  m_PrefabInstance: {fileID: 4163926175449664310}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1727244070
 GameObject:
   m_ObjectHideFlags: 0
@@ -2306,6 +2312,74 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 28881a8308b15144fb65c4ddb6e72e20, type: 3}
+--- !u!1001 &4163926175449664310
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1243499313801034483, guid: ca7289caeaf476f418fc5026747ec84b,
+        type: 3}
+      propertyPath: m_Name
+      value: RoomDecorator
+      objectReference: {fileID: 0}
+    - target: {fileID: 7913425898251205914, guid: ca7289caeaf476f418fc5026747ec84b,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -10.225684
+      objectReference: {fileID: 0}
+    - target: {fileID: 7913425898251205914, guid: ca7289caeaf476f418fc5026747ec84b,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1715.7977
+      objectReference: {fileID: 0}
+    - target: {fileID: 7913425898251205914, guid: ca7289caeaf476f418fc5026747ec84b,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 4.616107
+      objectReference: {fileID: 0}
+    - target: {fileID: 7913425898251205914, guid: ca7289caeaf476f418fc5026747ec84b,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7913425898251205914, guid: ca7289caeaf476f418fc5026747ec84b,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7913425898251205914, guid: ca7289caeaf476f418fc5026747ec84b,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7913425898251205914, guid: ca7289caeaf476f418fc5026747ec84b,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7913425898251205914, guid: ca7289caeaf476f418fc5026747ec84b,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7913425898251205914, guid: ca7289caeaf476f418fc5026747ec84b,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7913425898251205914, guid: ca7289caeaf476f418fc5026747ec84b,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: ca7289caeaf476f418fc5026747ec84b, type: 3}
 --- !u!1001 &7574571803627885732
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2520,6 +2594,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 898330267235875026, guid: efc6cc1e6a6bd62408f92250c92f997d,
         type: 3}
+      propertyPath: roomDecoratorGameObject
+      value: 
+      objectReference: {fileID: 1568458385}
+    - target: {fileID: 898330267235875026, guid: efc6cc1e6a6bd62408f92250c92f997d,
+        type: 3}
       propertyPath: puzzleGeneratorGameObject
       value: 
       objectReference: {fileID: 820850149}
@@ -2613,3 +2692,4 @@ SceneRoots:
   - {fileID: 607904574}
   - {fileID: 8433756575020876709}
   - {fileID: 7797359495570285557}
+  - {fileID: 4163926175449664310}
