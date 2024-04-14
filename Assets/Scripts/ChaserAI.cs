@@ -47,7 +47,7 @@ public class ChaserAI : MonoBehaviour
     {
         if (damaged || dead) return;
 
-        print("Chasing player");
+        //print("Chasing player");
         agent.SetDestination(player.position);
     }
 

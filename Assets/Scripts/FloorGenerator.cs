@@ -11,7 +11,9 @@ public class FloorGenerator : MonoBehaviour {
 
     public GameObject dungeonSpacePrefab;
     public GameObject puzzleGeneratorGameObject;
+    public GameObject stargateGeneratorGameObject;
     private PuzzleGenerator puzzleGenerator;
+    private StargateGenerator stargateGenerator;
 
     private int numRooms;
     private static List<Room> roomsList = new List<Room>();
@@ -38,17 +40,16 @@ public class FloorGenerator : MonoBehaviour {
             }
             this.type = type;
         }
-
-        public void GeneratePuzzle() {
-            this.type = Type.PUZZLE;
-            // TODO: Implement
-        }
     }
 
     public void Awake() {
         puzzleGenerator = puzzleGeneratorGameObject.GetComponent<PuzzleGenerator>();
-        if (puzzleGenerator == null ) {
+        if (puzzleGenerator == null) {
             throw new System.Exception("Could not find the PuzzleGenerator");
+        }
+        stargateGenerator = stargateGeneratorGameObject.GetComponent<StargateGenerator>();
+        if (puzzleGenerator == null) {
+            throw new System.Exception("Could not find the StargateGenerator");
         }
     }
 
@@ -159,9 +160,21 @@ public class FloorGenerator : MonoBehaviour {
             if (roomsMatrix[room.dx + 1, room.dz + 0] != null) { DestroyChildGameObject(newRoom, "EastWall/EastDoorFrame/EastDoor"); adjacentRoomsDirections.Add(CardinalDirection.East); }
             if (roomsMatrix[room.dx + 0, room.dz + 1] != null) { DestroyChildGameObject(newRoom, "NorthWall/NorthDoorFrame/NorthDoor"); adjacentRoomsDirections.Add(CardinalDirection.North); }
 
+            if (room.type == Room.Type.START) {
+                continue;
+            }
+
+            if (room.type == Room.Type.END) {
+                stargateGenerator.SpawnStargate(room.dx, room.dz);
+                    continue;
+            }
+
+            // If room is not START or END and has two open doors, set as PUZZLE.
             if (adjacentRoomsDirections.Count == 2) {
                 puzzleGenerator.GeneratePuzzle(adjacentRoomsDirections[0], adjacentRoomsDirections[1], room.dx, DUNGEON_FLOOR_Y, room.dz);
+                room.type = Room.Type.PUZZLE;
             }
+
         }
     }
 

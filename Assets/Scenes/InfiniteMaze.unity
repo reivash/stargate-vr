@@ -830,6 +830,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dungeonSpacePrefab: {fileID: 7736109784168305727, guid: 40d756501bd62244fb4f52d69b91d67b,
     type: 3}
+  puzzleGeneratorGameObject: {fileID: 820850149}
+  stargateGeneratorGameObject: {fileID: 2137817878}
 --- !u!4 &583506690
 Transform:
   m_ObjectHideFlags: 0
@@ -874,6 +876,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 890706923b4357e48be5210b2db5ae3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tilePrefab: {fileID: 69919846147511349, guid: 1f91713305f4a644488006a1fff91f8e,
+    type: 3}
 --- !u!4 &820850151
 Transform:
   m_ObjectHideFlags: 0
@@ -3069,6 +3073,68 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2137817878
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2137817881}
+  - component: {fileID: 2137817880}
+  - component: {fileID: 2137817879}
+  m_Layer: 0
+  m_Name: StarRoomGenerator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2137817879
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2137817878}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 832896b4e937b414180cf860754fcc0a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  starPrefab: {fileID: 236951112302609186, guid: 1d73fb074479b01409e2215c9e52ea5c,
+    type: 3}
+--- !u!114 &2137817880
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2137817878}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e741851cba3ad425c91ecf922cc6b379, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _data:
+    _json: '{"declarations":{"Kind":"Object","collection":{"$content":[],"$version":"A"},"$version":"A"}}'
+    _objectReferences: []
+--- !u!4 &2137817881
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2137817878}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.2302597, y: -16.769506, z: -9.444421}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -3083,3 +3149,4 @@ SceneRoots:
   - {fileID: 1727244073}
   - {fileID: 583506690}
   - {fileID: 820850151}
+  - {fileID: 2137817881}
