@@ -56,7 +56,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 25263fc0812903f4fbebeedfd82bfb8c, type: 2}
+      objectReference: {fileID: 2100000, guid: 640dc2f025ee433489ca50d9f685de47, type: 2}
     - target: {fileID: 114000013971332034, guid: 8f226a393243a0141bace5fd6b60bafa,
         type: 3}
       propertyPath: floatRate
@@ -154,8 +154,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   youWinCameraOverlay: {fileID: 408836236963733969, guid: e339eac01349a5345ac015458edf9836,
-    type: 3}
-  backgroundMusicGameObject: {fileID: 5918278376768898710, guid: c62b71df659bd6f4bad9753a76d362bb,
     type: 3}
 --- !u!82 &6540714657527633872
 AudioSource:
