@@ -155,6 +155,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   youWinCameraOverlay: {fileID: 408836236963733969, guid: e339eac01349a5345ac015458edf9836,
     type: 3}
+  backgroundMusicGameObject: {fileID: 5918278376768898710, guid: c62b71df659bd6f4bad9753a76d362bb,
+    type: 3}
 --- !u!82 &6540714657527633872
 AudioSource:
   m_ObjectHideFlags: 0

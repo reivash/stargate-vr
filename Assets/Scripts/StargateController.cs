@@ -18,6 +18,7 @@ public class StargateController : MonoBehaviour {
             Canvas canvas = gameOverOverlay.GetComponent<Canvas>();
             canvas.worldCamera = GameObject.FindFirstObjectByType<Camera>();
             winningMusic.Play();
+            GameObject.FindGameObjectWithTag("BackgroundMusic").GetComponent<AudioSource>().Stop();
             // TODO: Stop player movement. Maybe the world as well.
         }
     }
