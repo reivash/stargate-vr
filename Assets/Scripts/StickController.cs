@@ -23,7 +23,6 @@ public class StickController : MonoBehaviour {
     }
 
     private void OnTriggerEnter(Collider other) {
-        print($"Player hit {other.name} with axe!");
         if (enabled && other.name.Contains("ChaserCapsule")) {
             AudioSource audioSource = GetComponent<AudioSource>();
             audioSource.Play();
