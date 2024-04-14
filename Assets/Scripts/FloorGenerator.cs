@@ -6,18 +6,26 @@ using UnityEngine.Rendering.Universal.Internal;
 using static Coordinates;
 using static PuzzleGenerator;
 using static Constants;
+using UnityEditor.Rendering;
 
 public class FloorGenerator : MonoBehaviour {
 
+    // TODO: Can I avoid having this extra boilerplate code and just call the function? Is using static bad?
     public GameObject dungeonSpacePrefab;
     public GameObject puzzleGeneratorGameObject;
     public GameObject stargateGeneratorGameObject;
+    public GameObject weaponRoomGeneratorGameObject;
+    public GameObject monsterRoomGeneratorGameObject;
     private PuzzleGenerator puzzleGenerator;
     private StargateGenerator stargateGenerator;
+    private WeaponRoomGenerator weaponRoomGenerator;
+    private MonsterRoomGenerator monsterRoomGenerator;
 
     private int numRooms;
-    private static List<Room> roomsList = new List<Room>();
-    private static Room[,] roomsMatrix = new Room[DUNGEON_SIZE, DUNGEON_SIZE];
+    private List<Room> roomsList = new List<Room>();
+    private Room[,] roomsMatrix = new Room[DUNGEON_SIZE, DUNGEON_SIZE];
+    private int numWeaponRooms = 0;
+    private int numMonsterRooms = 0;
 
     class Room {
         public enum Type { EMPTY, PUZZLE, START, END };
@@ -26,7 +34,7 @@ public class FloorGenerator : MonoBehaviour {
         // Dungeon index for the logical map of dungeon rooms. These are not coordinates in the real world.
         public int dx, dz;
 
-        public Room(int dx, int dz, Type type) {
+        public Room(int dx, int dz, Type type, Room[,] roomsMatrix) {
             this.dx = dx;
             this.dz = dz;
 
@@ -50,6 +58,14 @@ public class FloorGenerator : MonoBehaviour {
         stargateGenerator = stargateGeneratorGameObject.GetComponent<StargateGenerator>();
         if (puzzleGenerator == null) {
             throw new System.Exception("Could not find the StargateGenerator");
+        }
+        weaponRoomGenerator = weaponRoomGeneratorGameObject.GetComponent<WeaponRoomGenerator>();
+        if (puzzleGenerator == null) {
+            throw new System.Exception("Could not find the WeaponRoomGenerator");
+        }
+        monsterRoomGenerator = monsterRoomGeneratorGameObject.GetComponent<MonsterRoomGenerator>();
+        if (puzzleGenerator == null) {
+            throw new System.Exception("Could not find the MonsterRoomGenerator");
         }
     }
 
@@ -90,7 +106,7 @@ public class FloorGenerator : MonoBehaviour {
         numRooms = MIN_ROOMS + (int)(Random.value * (MAX_ROOMS - MIN_ROOMS));
 
         // Generate starting room.
-        roomsList.Add(new Room(HALF_DUNGEON_SIZE, HALF_DUNGEON_SIZE, Room.Type.START));
+        roomsList.Add(new Room(HALF_DUNGEON_SIZE, HALF_DUNGEON_SIZE, Room.Type.START, roomsMatrix));
 
         while (roomsList.Count < numRooms) {
             // Take indexes of rooms that have at least one side without adjacent room.
@@ -119,7 +135,7 @@ public class FloorGenerator : MonoBehaviour {
 
             // Add new room.
             roomsList.Add(new Room(adjacentSpaceDungeonIndexes.Item1, adjacentSpaceDungeonIndexes.Item2
-                , Room.Type.EMPTY));
+                , Room.Type.EMPTY, roomsMatrix));
         }
 
         // Choose end room as the furthest one.
@@ -170,9 +186,15 @@ public class FloorGenerator : MonoBehaviour {
             }
 
             // If room is not START or END and has two open doors, set as PUZZLE.
-            if (adjacentRoomsDirections.Count == 2) {
-                puzzleGenerator.GeneratePuzzle(adjacentRoomsDirections[0], adjacentRoomsDirections[1], room.dx, DUNGEON_FLOOR_Y, room.dz);
+            if (adjacentRoomsDirections.Count == 2 ) {
+                puzzleGenerator.GenerateRoom(adjacentRoomsDirections[0], adjacentRoomsDirections[1], room.dx, DUNGEON_FLOOR_Y, room.dz);
                 room.type = Room.Type.PUZZLE;
+            } else if (numWeaponRooms < WEAPON_ROOMS) {
+                weaponRoomGenerator.GenerateRoom(room.dx, room.dz);
+                numWeaponRooms++;
+            } else if (numMonsterRooms < MONSTER_ROOMS) {
+                monsterRoomGenerator.GenerateRoom(room.dx, room.dz);
+                numMonsterRooms++;
             }
 
         }

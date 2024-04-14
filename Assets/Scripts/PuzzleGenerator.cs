@@ -36,7 +36,7 @@ public class PuzzleGenerator : MonoBehaviour {
         }
     }
 
-    public void GeneratePuzzle(CardinalDirection start, CardinalDirection end, int dungeonX, float dungeonFloorY, int dungeonZ) {
+    public void GenerateRoom(CardinalDirection start, CardinalDirection end, int dungeonX, float dungeonFloorY, int dungeonZ) {
         if (start == end) {
             throw new System.Exception("The puzzle start and end can't be the same");
         }
