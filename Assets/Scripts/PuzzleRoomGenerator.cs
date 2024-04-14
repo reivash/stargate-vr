@@ -7,7 +7,7 @@ using static Coordinates;
 using static Constants;
 
 // TODO: Rename to HiddenPath or something more descritive.
-public class PuzzleGenerator : MonoBehaviour {
+public class PuzzleRoomGenerator : MonoBehaviour {
     
     public GameObject tilePrefab;
 

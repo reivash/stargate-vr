@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Rendering.Universal.Internal;
 
 using static Coordinates;
-using static PuzzleGenerator;
+using static PuzzleRoomGenerator;
 using static Constants;
 using UnityEditor.Rendering;
 
@@ -17,8 +17,8 @@ public class FloorGenerator : MonoBehaviour {
     public GameObject weaponRoomGeneratorGameObject;
     public GameObject monsterRoomGeneratorGameObject;
     public GameObject roomDecoratorGameObject;
-    private PuzzleGenerator puzzleGenerator;
-    private StargateGenerator stargateGenerator;
+    private PuzzleRoomGenerator puzzleGenerator;
+    private StargateRoomGenerator stargateGenerator;
     private WeaponRoomGenerator weaponRoomGenerator;
     private MonsterRoomGenerator monsterRoomGenerator;
     private RoomDecorator roomDecorator;
@@ -54,11 +54,11 @@ public class FloorGenerator : MonoBehaviour {
     }
 
     public void Awake() {
-        puzzleGenerator = puzzleGeneratorGameObject.GetComponent<PuzzleGenerator>();
+        puzzleGenerator = puzzleGeneratorGameObject.GetComponent<PuzzleRoomGenerator>();
         if (puzzleGenerator == null) {
             throw new System.Exception("Could not find the PuzzleGenerator");
         }
-        stargateGenerator = stargateGeneratorGameObject.GetComponent<StargateGenerator>();
+        stargateGenerator = stargateGeneratorGameObject.GetComponent<StargateRoomGenerator>();
         if (puzzleGenerator == null) {
             throw new System.Exception("Could not find the StargateGenerator");
         }

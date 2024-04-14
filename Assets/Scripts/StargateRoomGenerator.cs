@@ -4,7 +4,7 @@ using UnityEngine;
 
 using static Coordinates;
 using static Constants;
-public class StargateGenerator : MonoBehaviour {
+public class StargateRoomGenerator : MonoBehaviour {
 
     public GameObject starPrefab;
 
