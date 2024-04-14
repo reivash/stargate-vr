@@ -13,7 +13,8 @@ GameObject:
   - component: {fileID: 1560398229801871515}
   - component: {fileID: 1484130146216209818}
   - component: {fileID: 4016545346084006970}
-  - component: {fileID: 8840503868276663569}
+  - component: {fileID: 4235600177444842335}
+  - component: {fileID: 1920800117682159291}
   m_Layer: 7
   m_Name: Axe
   m_TagString: Untagged
@@ -328,13 +329,13 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 6, y: 20, z: 0.1}
   m_Center: {x: -1.79, y: 7.5, z: 0}
---- !u!114 &8840503868276663569
+--- !u!114 &4235600177444842335
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -347,6 +348,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stickDamage: 4
+--- !u!65 &1920800117682159291
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2131828316661564204}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 6, y: 20, z: 0.1}
+  m_Center: {x: -1.79, y: 7.5, z: 0}
 --- !u!1 &2339195598405974893
 GameObject:
   m_ObjectHideFlags: 0
