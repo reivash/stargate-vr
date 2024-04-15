@@ -1,0 +1,22 @@
+3D LowPoly Stylized Orc with rig and animations. Can be used in mobile or computer games.
+
+
+Number of textures - 2 pack of PBR(for orc and for axe) = 10 textures
+Texture dimensions - 13.4mb AXE, 32mb - ORC
+Polygon count - 13.6k faces
+Number of meshes/prefabs -  2 prefabs : axe and orc
+Rigging: Yes
+Animation count - Yes
+Animation type list:
+1. Idle
+2. Attack1
+3. Attack2
+4. Running
+5. Walk
+6. Death
+UV mapping: Yes
+
+
+In folder "Textures" have customized materials, if the materials flew off, then you need to place the corresponding texture in each cell from the corresponding folder
+
+If there are problems with Scale and dimensions you should change meaning "Scale factor" in tab "Model". Go to the folder "orc" -> choose model to be edited -> change "scale factor".
