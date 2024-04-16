@@ -25,7 +25,8 @@ public class ChaserAI : MonoBehaviour {
 
     // States
     public float sightRange, attackRange;
-    public bool playerInSightRange;
+    private bool playerInSightRange;
+    private bool playerInAttackRange;
     public bool damaged;
     public int health = 10;
     public int timeoutAttackedColor = 1;
@@ -45,8 +46,14 @@ public class ChaserAI : MonoBehaviour {
     private void Update() {
         if (!agent.enabled) return;
         playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
-        if (playerInSightRange) { 
-            ChasePlayer(); 
+        playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
+        if (playerInAttackRange) {
+            animator.runtimeAnimatorController = attackController;
+        } else
+        if (playerInSightRange) {
+            ChasePlayer();
+        } else {
+            animator.runtimeAnimatorController = idleController;
         }
     }
 

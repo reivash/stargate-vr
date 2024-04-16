@@ -51,13 +51,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   agent: {fileID: 1022600140960342053}
-  player: {fileID: 0}
+  player: {fileID: 3877174949646409612, guid: cc1c726043e52cf4aa5134ea243d2aca, type: 3}
   whatIsGround:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 256
   whatIsPlayer:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 64
   orcGameObject: {fileID: 6631289013881589412}
   idleController: {fileID: 9100000, guid: 2f5413f28c8c1904c9de36e8c01d4884, type: 2}
   walkController: {fileID: 9100000, guid: 2c42ca514beba31478d9ad88097def2c, type: 2}
@@ -65,9 +65,8 @@ MonoBehaviour:
   dieController: {fileID: 9100000, guid: 5ac0b15ad92872948ba1f68a1b87c79e, type: 2}
   walkPoint: {x: 0, y: 0, z: 0}
   walkPointRange: 0
-  sightRange: 3
-  attackRange: 2
-  playerInSightRange: 0
+  sightRange: 2
+  attackRange: 1
   damaged: 0
   health: 10
   timeoutAttackedColor: 1
