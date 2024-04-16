@@ -23,7 +23,7 @@ public class StickController : MonoBehaviour {
     }
 
     private void OnTriggerEnter(Collider other) {
-        if (enabled && other.name.Contains("ChaserCapsule")) {
+        if (enabled && other.name.Contains("Orc")) {
             AudioSource audioSource = GetComponent<AudioSource>();
             audioSource.Play();
             ChaserAI script = other.gameObject.GetComponent<ChaserAI>();

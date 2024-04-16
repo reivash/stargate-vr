@@ -61,9 +61,9 @@ public class ChaserAI : MonoBehaviour {
 
     public void TakeDamage(int damage, Vector3 hitDirection) {
         if (!agent.enabled || (agent.isOnNavMesh && agent.isStopped)) return;
-        rigidBody.isKinematic = false;
-        agent.enabled = false;
-        rigidBody.AddForce(hitDirection.normalized * damage / 10, ForceMode.Impulse);
+        //rigidBody.isKinematic = false;
+        //agent.enabled = false;
+        //rigidBody.AddForce(hitDirection.normalized * damage / 10, ForceMode.Impulse);
 
         damaged = true;
         health -= damage;
@@ -71,10 +71,9 @@ public class ChaserAI : MonoBehaviour {
             audioSource.Play();
             Invoke(nameof(DestroyChaser), 1.5f);
             dead = true;
-            if (agent.isOnNavMesh) agent.isStopped = true;
+            //if (agent.isOnNavMesh) agent.isStopped = true;
             animator.runtimeAnimatorController = dieController;
         } else {
-            meshRenderer.material.color = Color.red;
             Invoke(nameof(Resume), timeoutAttackedColor);
         }
     }
@@ -84,10 +83,9 @@ public class ChaserAI : MonoBehaviour {
     }
 
     private void Resume() {
-        agent.enabled = true;
-        rigidBody.isKinematic = false;
+        //agent.enabled = true;
+        //rigidBody.isKinematic = false;
         damaged = false;
-        meshRenderer.material.color = Color.white;
         animator.runtimeAnimatorController = idleController;
     }
 
