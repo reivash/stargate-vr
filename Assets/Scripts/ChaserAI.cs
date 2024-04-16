@@ -7,8 +7,7 @@ using static UnityEngine.XR.OpenXR.Features.Interactions.DPadInteraction;
 
 public class ChaserAI : MonoBehaviour {
     public NavMeshAgent agent;
-    private MeshRenderer meshRenderer;
-    public Rigidbody rigidBody;
+    private Rigidbody rigidBody;
     AudioSource audioSource;
     public Transform player;
     public LayerMask whatIsGround, whatIsPlayer;
@@ -36,10 +35,9 @@ public class ChaserAI : MonoBehaviour {
     private void Awake() {
         player = GameObject.FindGameObjectWithTag("Player").transform;
         agent = GetComponent<NavMeshAgent>();
-        meshRenderer = GetComponent<MeshRenderer>();
         audioSource = GetComponent<AudioSource>();
         rigidBody = GetComponent<Rigidbody>();
-        rigidBody.isKinematic = true;
+        //rigidBody.isKinematic = true;
         animator = orcGameObject.GetComponent<Animator>();
         surface.BuildNavMesh();
     }
