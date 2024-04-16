@@ -6,10 +6,10 @@ public class Constants
 {
     // Floor settings.
     public const int MIN_ROOMS = 12;
-    public const int MAX_ROOMS = 16;
+    public const int MAX_ROOMS = 12;
     public const int PUZZLE_ROOMS = 2;
-    public const int WEAPON_ROOMS = 5;
-    public const int MONSTER_ROOMS = 1;
+    public const int WEAPON_ROOMS = 2;
+    public const int MONSTER_ROOMS = 5;
 
     public const int DUNGEON_SIZE = 32;
     public const int HALF_DUNGEON_SIZE = DUNGEON_SIZE >> 1;

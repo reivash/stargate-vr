@@ -1,81 +1,85 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.AI.Navigation;
 using UnityEngine;
 using UnityEngine.AI;
 using static UnityEngine.XR.OpenXR.Features.Interactions.DPadInteraction;
 
-public class ChaserAI : MonoBehaviour
-{
+public class ChaserAI : MonoBehaviour {
     public NavMeshAgent agent;
     private MeshRenderer meshRenderer;
     public Rigidbody rigidBody;
     AudioSource audioSource;
     public Transform player;
     public LayerMask whatIsGround, whatIsPlayer;
+    public GameObject orcGameObject;
+    private Animator animator;
+    public RuntimeAnimatorController idleController;
+    public RuntimeAnimatorController walkController;
+    public RuntimeAnimatorController attackController;
+    public RuntimeAnimatorController dieController;
 
-    //Patroling
+    // Patroling
     public Vector3 walkPoint;
     bool walkPointSet;
     public float walkPointRange;
 
-    //States
+    // States
     public float sightRange, attackRange;
     public bool playerInSightRange;
     public bool damaged;
     public int health = 10;
     public int timeoutAttackedColor = 1;
     public bool dead;
+    public NavMeshSurface surface;
 
-    private void Awake()
-    {
+    private void Awake() {
         player = GameObject.FindGameObjectWithTag("Player").transform;
         agent = GetComponent<NavMeshAgent>();
         meshRenderer = GetComponent<MeshRenderer>();
         audioSource = GetComponent<AudioSource>();
         rigidBody = GetComponent<Rigidbody>();
-        rigidBody.isKinematic = true;   
+        rigidBody.isKinematic = true;
+        animator = orcGameObject.GetComponent<Animator>();
+        surface.BuildNavMesh();
     }
 
-    private void Update()
-    {
+    private void Update() {
         if (!agent.enabled) return;
         playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
-        if (playerInSightRange) ChasePlayer();
+        if (playerInSightRange) { 
+            ChasePlayer(); 
+        }
     }
 
-    private void ChasePlayer()
-    {
+    private void ChasePlayer() {
         if (damaged || dead) return;
-
-        //print("Chasing player");
-        //agent.SetDestination(player.position);
+        if (agent.isOnNavMesh)
+            agent.SetDestination(player.position);
+        animator.runtimeAnimatorController = walkController;
     }
 
-    public void TakeDamage(int damage, Vector3 hitDirection)
-    {
+    public void TakeDamage(int damage, Vector3 hitDirection) {
         if (!agent.enabled || (agent.isOnNavMesh && agent.isStopped)) return;
         rigidBody.isKinematic = false;
         agent.enabled = false;
-        rigidBody.AddForce(hitDirection.normalized * damage/10, ForceMode.Impulse);
+        rigidBody.AddForce(hitDirection.normalized * damage / 10, ForceMode.Impulse);
 
         damaged = true;
         health -= damage;
-        if (health <= 0)
-        {
+        if (health <= 0) {
             audioSource.Play();
             Invoke(nameof(DestroyChaser), 1.5f);
             dead = true;
-           if (agent.isOnNavMesh) agent.isStopped = true;
-            meshRenderer.material.color = Color.black;
-        }
-        else {
+            if (agent.isOnNavMesh) agent.isStopped = true;
+            animator.runtimeAnimatorController = dieController;
+        } else {
             meshRenderer.material.color = Color.red;
             Invoke(nameof(Resume), timeoutAttackedColor);
         }
     }
 
-    private void DestroyChaser()
-    {
+    private void DestroyChaser() {
         Destroy(gameObject);
     }
 
@@ -84,10 +88,10 @@ public class ChaserAI : MonoBehaviour
         rigidBody.isKinematic = false;
         damaged = false;
         meshRenderer.material.color = Color.white;
+        animator.runtimeAnimatorController = idleController;
     }
 
-    private void OnDrawGizmosSelected()
-    {
+    private void OnDrawGizmosSelected() {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, attackRange);
         Gizmos.color = Color.yellow;
