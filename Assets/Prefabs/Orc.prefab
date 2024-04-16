@@ -65,7 +65,7 @@ MonoBehaviour:
   dieController: {fileID: 9100000, guid: 5ac0b15ad92872948ba1f68a1b87c79e, type: 2}
   walkPoint: {x: 0, y: 0, z: 0}
   walkPointRange: 0
-  sightRange: 2
+  sightRange: 3
   attackRange: 1
   damaged: 0
   health: 10
