@@ -1,16 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.AI.Navigation;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.AI;
 using static UnityEngine.XR.OpenXR.Features.Interactions.DPadInteraction;
 
-public class ChaserAI : MonoBehaviour {
+public class OrcAI : MonoBehaviour {
 
 
     public NavMeshAgent agent;
     private Rigidbody rigidBody;
-    AudioSource audioSource;
     public Transform player;
     public LayerMask whatIsGround, whatIsPlayer;
     public GameObject orcGameObject;
@@ -30,32 +30,49 @@ public class ChaserAI : MonoBehaviour {
     private bool playerInSightRange;
     private bool playerInAttackRange;
     public bool damaged;
+    public bool attacking;
     public int health = 10;
     public int timeoutAttackedColor = 1;
+    public float attackSpeed = 1.5f;
     public bool dead;
     public NavMeshSurface surface;
 
+    private AudioSource audioSource;
+    private AudioClip orcAttackAudioClip;
+    private AudioClip orcDamagedAudioClip;
+    private AudioClip orcDieAudioClip;
+
+
     private void Awake() {
+        audioSource = GetComponent<AudioSource>();
+        orcAttackAudioClip = AssetDatabase.LoadAssetAtPath<AudioClip>("Assets/Audio/orc-attack.mp3");
+        orcDamagedAudioClip = AssetDatabase.LoadAssetAtPath<AudioClip>("Assets/Audio/orc-damaged.mp3");
+        orcDieAudioClip = AssetDatabase.LoadAssetAtPath<AudioClip>("Assets/Audio/orc-die.mp3");
         player = GameObject.FindGameObjectWithTag("Player").transform;
         agent = GetComponent<NavMeshAgent>();
-        audioSource = GetComponent<AudioSource>();
         rigidBody = GetComponent<Rigidbody>();
         animator = orcGameObject.GetComponent<Animator>();
         surface.BuildNavMesh();
     }
 
     private void Update() {
-        if (!agent.enabled) return;
+        if (!agent.enabled || attacking) return;
         playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
         playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
         if (playerInAttackRange) {
+            attacking = true;
+            Invoke(nameof(ReadyToAttack), attackSpeed);
             animator.runtimeAnimatorController = attackController;
+            if (!audioSource.isPlaying) audioSource.PlayOneShot(orcAttackAudioClip);
         } else
         if (playerInSightRange) {
             ChasePlayer();
         } else {
             animator.runtimeAnimatorController = idleController;
         }
+    }
+    private void ReadyToAttack() {
+        attacking = false;
     }
 
     private void ChasePlayer() {
@@ -72,13 +89,14 @@ public class ChaserAI : MonoBehaviour {
         damaged = true;
         health -= damage;
         if (health <= 0) {
-            audioSource.Play();
+            if (!audioSource.isPlaying) audioSource.PlayOneShot(orcDieAudioClip);
             Invoke(nameof(DestroyChaser), 1.5f);
             dead = true;
             //if (agent.isOnNavMesh) agent.isStopped = true;
             animator.runtimeAnimatorController = dieController;
         } else {
             Invoke(nameof(Resume), timeoutAttackedColor);
+            if (!audioSource.isPlaying) audioSource.PlayOneShot(orcDieAudioClip);
         }
     }
 
