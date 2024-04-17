@@ -78,7 +78,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ad34abafad169848a38072baa96cdb2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_InteractionManager: {fileID: 0}
+  m_InteractionManager: {fileID: 4602021300844381614, guid: 48bd39d6ae6d00749996332b9d8dbd56,
+    type: 3}
   m_Colliders: []
   m_InteractionLayerMask:
     serializedVersion: 2
@@ -333,7 +334,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 6, y: 20, z: 0.1}
+  m_Size: {x: 8, y: 36, z: 0.3}
   m_Center: {x: -1.79, y: 7.5, z: 0}
 --- !u!114 &4235600177444842335
 MonoBehaviour:
