@@ -6,6 +6,8 @@ using UnityEngine.AI;
 using static UnityEngine.XR.OpenXR.Features.Interactions.DPadInteraction;
 
 public class ChaserAI : MonoBehaviour {
+
+
     public NavMeshAgent agent;
     private Rigidbody rigidBody;
     AudioSource audioSource;
@@ -38,7 +40,6 @@ public class ChaserAI : MonoBehaviour {
         agent = GetComponent<NavMeshAgent>();
         audioSource = GetComponent<AudioSource>();
         rigidBody = GetComponent<Rigidbody>();
-        //rigidBody.isKinematic = true;
         animator = orcGameObject.GetComponent<Animator>();
         surface.BuildNavMesh();
     }
@@ -66,8 +67,6 @@ public class ChaserAI : MonoBehaviour {
 
     public void TakeDamage(int damage, Vector3 hitDirection) {
         if (!agent.enabled || (agent.isOnNavMesh && agent.isStopped)) return;
-        //rigidBody.isKinematic = false;
-        //agent.enabled = false;
         //rigidBody.AddForce(hitDirection.normalized * damage / 10, ForceMode.Impulse);
 
         damaged = true;
@@ -89,7 +88,6 @@ public class ChaserAI : MonoBehaviour {
 
     private void Resume() {
         //agent.enabled = true;
-        //rigidBody.isKinematic = false;
         damaged = false;
         animator.runtimeAnimatorController = idleController;
     }
