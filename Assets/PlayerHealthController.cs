@@ -45,7 +45,6 @@ public class PlayerHealthController : MonoBehaviour
         }
 
         float timeSinceLastCall = Time.time - lastDamageTime;
-        lastDamageTime = Time.time;
         if (timeSinceLastCall > timeToHeal) {
             health = maxHealth;
             colorAdjustments.active = false;
