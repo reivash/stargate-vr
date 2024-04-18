@@ -6,6 +6,10 @@ TagManager:
   tags:
   - GameOver
   - BackgroundMusic
+  - LeftHand
+  - RightHand
+  - Pointer
+  - PlayerHealth
   layers:
   - Default
   - TransparentFX

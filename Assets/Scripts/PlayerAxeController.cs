@@ -3,10 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
-public class StickController : MonoBehaviour {
+public class PlayerAxeController : MonoBehaviour {
     public int stickDamage = 4;
-
-
     private void Awake() {
         this.enabled = false;
         XRGrabInteractable xRGrabInteractable = GetComponent<XRGrabInteractable>();

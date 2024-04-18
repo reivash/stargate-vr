@@ -8,7 +8,6 @@ using static UnityEngine.XR.OpenXR.Features.Interactions.DPadInteraction;
 
 public class OrcAI : MonoBehaviour {
 
-
     public NavMeshAgent agent;
     private Rigidbody rigidBody;
     public Transform player;
@@ -36,6 +35,7 @@ public class OrcAI : MonoBehaviour {
     public float attackSpeed = 1.5f;
     public bool dead;
     public NavMeshSurface surface;
+    public float orcDamage = 1;
 
     private AudioSource audioSource;
     private AudioClip orcAttackAudioClip;
@@ -64,6 +64,8 @@ public class OrcAI : MonoBehaviour {
             Invoke(nameof(ReadyToAttack), attackSpeed);
             animator.runtimeAnimatorController = attackController;
             if (!audioSource.isPlaying) audioSource.PlayOneShot(orcAttackAudioClip);
+            PlayerHealthController playerHealthController = GameObject.FindGameObjectWithTag("PlayerHealth").GetComponent<PlayerHealthController>();
+            playerHealthController.TakeDamage(orcDamage);
         } else
         if (playerInSightRange) {
             ChasePlayer();
