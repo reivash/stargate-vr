@@ -7,6 +7,7 @@ using static Coordinates;
 using static PuzzleRoomGenerator;
 using static Constants;
 using UnityEditor.Rendering;
+using Unity.AI.Navigation;
 
 public class FloorGenerator : MonoBehaviour {
 
@@ -159,6 +160,13 @@ public class FloorGenerator : MonoBehaviour {
         roomsList[idx].type = Room.Type.END;
         PrintDungeonLayout();
     }
+
+    void GenerateNavMesh() {
+        GameObject navMeshSurfaceGameObject = GameObject.FindGameObjectWithTag("NavMeshSurface");
+        NavMeshSurface navMeshSurface = navMeshSurfaceGameObject.GetComponent<NavMeshSurface>();
+        navMeshSurface.BuildNavMesh();
+    }
+
     void DestroyChildGameObject(GameObject gameObject, string childName) {
         Transform westDoor = gameObject.transform.Find(childName);
         if (westDoor != null) {
@@ -214,6 +222,7 @@ public class FloorGenerator : MonoBehaviour {
     void Start() {
         print("Start FloorGenerator!");
         GenerateFloorMap();
+        GenerateNavMesh();
         GenerateGameObjects();
         print("End FloorGenerator!");
     }
