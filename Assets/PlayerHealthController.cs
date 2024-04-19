@@ -30,7 +30,7 @@ public class PlayerHealthController : MonoBehaviour
         health -= damage;
 
         Color currentColor = colorAdjustments.colorFilter.value;
-        currentColor.r = Mathf.Max(currentColor.r - 0.25f, 0f);
+        currentColor.r = currentColor.r - 0.25f;
         colorAdjustments.colorFilter.value = currentColor;
 
         if (health <= 0) {
