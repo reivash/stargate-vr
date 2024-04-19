@@ -161,12 +161,6 @@ public class FloorGenerator : MonoBehaviour {
         PrintDungeonLayout();
     }
 
-    void GenerateNavMesh() {
-        GameObject navMeshSurfaceGameObject = GameObject.FindGameObjectWithTag("NavMeshSurface");
-        NavMeshSurface navMeshSurface = navMeshSurfaceGameObject.GetComponent<NavMeshSurface>();
-        navMeshSurface.BuildNavMesh();
-    }
-
     void DestroyChildGameObject(GameObject gameObject, string childName) {
         Transform westDoor = gameObject.transform.Find(childName);
         if (westDoor != null) {
@@ -222,7 +216,6 @@ public class FloorGenerator : MonoBehaviour {
     void Start() {
         print("Start FloorGenerator!");
         GenerateFloorMap();
-        GenerateNavMesh();
         GenerateGameObjects();
         print("End FloorGenerator!");
     }
