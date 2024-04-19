@@ -33,12 +33,13 @@ public class PlayerAxeController : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other) {
         if (enabled && other.name.Contains("Orc")) {
-            audioSource.PlayOneShot(weaponHitAudioClip);
             OrcAI script = other.gameObject.GetComponent<OrcAI>();
             Vector3 collisionDirection = transform.position - other.transform.position;
             collisionDirection.Normalize();
             collisionDirection.y = 0;
-            script.TakeDamage(stickDamage, collisionDirection);
+            if (script.TakeDamage(stickDamage, collisionDirection)) {
+                audioSource.PlayOneShot(weaponHitAudioClip);
+            }
         }
     }
 }

@@ -41,7 +41,7 @@ public class OrcAI : MonoBehaviour {
     private AudioClip orcAttackAudioClip;
     private AudioClip orcDamagedAudioClip;
     private AudioClip orcDieAudioClip;
-
+    private PlayerHealthController playerHealthController;
 
     private void Awake() {
         audioSource = GetComponent<AudioSource>();
@@ -52,7 +52,7 @@ public class OrcAI : MonoBehaviour {
         agent = GetComponent<NavMeshAgent>();
         rigidBody = GetComponent<Rigidbody>();
         animator = orcGameObject.GetComponent<Animator>();
-        surface.BuildNavMesh();
+        surface.BuildNavMesh(); playerHealthController = GameObject.FindGameObjectWithTag("PlayerHealth").GetComponent<PlayerHealthController>();
     }
 
     private void Update() {
@@ -64,8 +64,7 @@ public class OrcAI : MonoBehaviour {
             Invoke(nameof(ReadyToAttack), attackSpeed);
             animator.runtimeAnimatorController = attackController;
             if (!audioSource.isPlaying) audioSource.PlayOneShot(orcAttackAudioClip);
-            PlayerHealthController playerHealthController = GameObject.FindGameObjectWithTag("PlayerHealth").GetComponent<PlayerHealthController>();
-            playerHealthController.TakeDamage(orcDamage);
+            Invoke(nameof(DamagePlayer), .6f);
         } else
         if (playerInSightRange) {
             ChasePlayer();
@@ -73,6 +72,12 @@ public class OrcAI : MonoBehaviour {
             animator.runtimeAnimatorController = idleController;
         }
     }
+
+    private void DamagePlayer() {
+        if (dead) return;
+        playerHealthController.TakeDamage(orcDamage);
+    }
+
     private void ReadyToAttack() {
         attacking = false;
     }
@@ -84,8 +89,9 @@ public class OrcAI : MonoBehaviour {
         animator.runtimeAnimatorController = walkController;
     }
 
-    public void TakeDamage(int damage, Vector3 hitDirection) {
-        if (!agent.enabled || (agent.isOnNavMesh && agent.isStopped)) return;
+    public bool TakeDamage(int damage, Vector3 hitDirection) {
+        if (dead) return false;
+        if (!agent.enabled || (agent.isOnNavMesh && agent.isStopped)) return false;
         //rigidBody.AddForce(hitDirection.normalized * damage / 10, ForceMode.Impulse);
 
         damaged = true;
@@ -100,6 +106,8 @@ public class OrcAI : MonoBehaviour {
             Invoke(nameof(Resume), timeoutAttackedColor);
             if (!audioSource.isPlaying) audioSource.PlayOneShot(orcDieAudioClip);
         }
+
+        return true;
     }
 
     private void Destroy() {
