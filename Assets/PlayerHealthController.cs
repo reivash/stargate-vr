@@ -25,7 +25,6 @@ public class PlayerHealthController : MonoBehaviour
 
    public void TakeDamage(float damage) {
         colorAdjustments.active  = true;
-        //colorAdjustments.postExposure.value += 1;
         lastDamageTime = Time.time;
         health -= damage;
 
