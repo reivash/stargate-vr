@@ -92,7 +92,7 @@ public class OrcAI : MonoBehaviour {
         health -= damage;
         if (health <= 0) {
             if (!audioSource.isPlaying) audioSource.PlayOneShot(orcDieAudioClip);
-            Invoke(nameof(DestroyChaser), 1.5f);
+            Invoke(nameof(Destroy), 1f);
             dead = true;
             //if (agent.isOnNavMesh) agent.isStopped = true;
             animator.runtimeAnimatorController = dieController;
@@ -102,7 +102,7 @@ public class OrcAI : MonoBehaviour {
         }
     }
 
-    private void DestroyChaser() {
+    private void Destroy() {
         Destroy(gameObject);
     }
 
