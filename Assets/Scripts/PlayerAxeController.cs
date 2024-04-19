@@ -1,29 +1,39 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
 public class PlayerAxeController : MonoBehaviour {
     public int stickDamage = 4;
+
+    private AudioSource audioSource;
+    private AudioClip unsheatheAudioClip;
+    private AudioClip weaponHitAudioClip;
+
+
     private void Awake() {
-        this.enabled = false;
+        enabled = false;
+        audioSource = GetComponent<AudioSource>();
+        unsheatheAudioClip= AssetDatabase.LoadAssetAtPath<AudioClip>("Assets/Audio/unsheathe-sword.mp3");
+        weaponHitAudioClip = AssetDatabase.LoadAssetAtPath<AudioClip>("Assets/Audio/stick-hit.mp3");
         XRGrabInteractable xRGrabInteractable = GetComponent<XRGrabInteractable>();
         xRGrabInteractable.selectEntered.AddListener(OnGrabbed);
         xRGrabInteractable.selectExited.AddListener(OnReleased);
     }
 
     private void OnGrabbed(SelectEnterEventArgs arg) {
-        this.enabled = true;
+        enabled = true;
+        audioSource.PlayOneShot(unsheatheAudioClip);
     }
 
     private void OnReleased(SelectExitEventArgs arg) {
-        this.enabled = false;
+        enabled = false;
     }
 
     private void OnTriggerEnter(Collider other) {
         if (enabled && other.name.Contains("Orc")) {
-            AudioSource audioSource = GetComponent<AudioSource>();
-            audioSource.Play();
+            audioSource.PlayOneShot(weaponHitAudioClip);
             OrcAI script = other.gameObject.GetComponent<OrcAI>();
             Vector3 collisionDirection = transform.position - other.transform.position;
             collisionDirection.Normalize();
