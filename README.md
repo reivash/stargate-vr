@@ -11,7 +11,7 @@ This is a learning project to get started with Unity and OpenXR. The goal is to 
 <img width="608" alt="image" src="https://github.com/reivash/stargate-vr/assets/3762851/8d22cba6-ebde-42ba-95f0-85178f4f4460">
 
 ### A fade-in starting screen
-<img width="613" alt="image" src="https://github.com/reivash/stargate-vr/assets/3762851/d93dd4a8-24bc-4814-b667-c6020c6a7c58"><img width="525" alt="image" src="https://github.com/reivash/stargate-vr/assets/3762851/f8d6f1dc-f1d3-44fd-bfdc-a9a987b42bf6">
+<img width="525" alt="image" src="https://github.com/reivash/stargate-vr/assets/3762851/f8d6f1dc-f1d3-44fd-bfdc-a9a987b42bf6">
 
 And 
 - Simple combat system.
