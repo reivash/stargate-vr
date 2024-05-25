@@ -38,7 +38,7 @@ https://github.com/reivash/stargate-vr/assets/3762851/87210e9a-dab9-4aec-8935-85
 
 https://github.com/reivash/stargate-vr/assets/3762851/2e9cdec9-c9fe-4cad-88ae-f99b43bc7e6c
 
-### Reaching the stargate 
+### Reaching the stargate⭐
 Reaching the stargate is the goal of the game. A victory screen and music will appear when doing so. 
 
 https://github.com/reivash/stargate-vr/assets/3762851/50a84a1f-94d7-435b-b744-4de9604eb9af
